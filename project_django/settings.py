@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'example_app',
+    'login_logout',
+    'landing_page', 
+    'kelola_tim', 
+    'history_rapat',
 ]
 
 MIDDLEWARE = [
