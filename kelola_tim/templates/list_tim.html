@@ -9,7 +9,7 @@
 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<table class="table">
+<table class="table table-bordered">
     <thead>
       <tr>
         <th scope="col" colspan="8" class="text-center">Tim</th>
@@ -30,13 +30,34 @@
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
+        <th scope="row">John Doe</th>
+        <td>081234567890</td>
+        <td>2023-01-01</td>
+        <td>Yes</td>
+        <td>Goal Keeper</td>
+        <td>2101234567</td>
+        <td>S1</td>
+        <td>?</td>
       </tr>
       <tr>
-        <th scope="row">2</th>
+        <th scope="row">John Doe</th>
+        <td>081234567890</td>
+        <td>2023-01-01</td>
+        <td>Yes</td>
+        <td>Goal Keeper</td>
+        <td>2101234567</td>
+        <td>S1</td>
+        <td>?</td>
       </tr>
       <tr>
-        <th scope="row">3</th>
+        <th scope="row">John Doe</th>
+        <td>081234567890</td>
+        <td>2023-01-01</td>
+        <td>Yes</td>
+        <td>Goal Keeper</td>
+        <td>2101234567</td>
+        <td>S1</td>
+        <td>?</td>
       </tr>
     </tbody>
     <thead>
@@ -53,8 +74,24 @@
         <th scope="col" class="text-center">Action</th>
       </tr>
     </thead>
+    <tbody>
+      <tr>
+        <th scope="row">John Doe</th>
+        <td>08123456789</td>
+        <td>johndoe@gmail.com</td>
+        <td colspan="2">Jalan jalan no.123</td>
+        <td colspan="2">?</td>
+        <td>?</td>
+      </tr>
+    </tbody>
 </table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto text-center">
+      <button class="btn btn-primary mr-2">Add Player</button>
+      <button class="btn btn-primary ml-2">Add Coach</button>
+    </div>
+  </div>
+</div>
 
-<button type="button" class="btn btn-primary btn-lg">Tambah Pemain</button>
-<button type="button" class="btn btn-primary btn-lg">Tambah Pelatih</button>
 {% endblock content %}
