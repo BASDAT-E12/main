@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'landing_page', 
     'kelola_tim', 
     'history_rapat',
+    'membuat_pertandingan',
+    'mulai_pertandingan',
+    'mulai_rapat'
 ]
 
 MIDDLEWARE = [
