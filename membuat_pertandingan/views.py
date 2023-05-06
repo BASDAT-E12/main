@@ -14,4 +14,4 @@ def choose_time(request):
 
 
 def create_match(request):
-    return render(request, "buat_pertandingan.html")
+    return render(request, "membuat_pertandingan.html")
