@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List Pemesanan</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f3f5;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 600px;
+      max-width: 90%;
+      background-color: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 2px 0 rgba(0,0,0,.05), 0 3px 0 rgba(0,0,0,.05);
+    }
+    
+    th, td {
+      border: none;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #f2f3f5;
+      white-space: nowrap; /* Prevent text wrapping */
+      overflow: hidden; /* Hide overflowing text */
+      text-overflow: ellipsis; /* Display ellipsis (...) for overflowing text */
+    }
+    
+    th {
+      background-color: #7289da;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    a {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background-color: #677bc4;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    a:hover {
+      background-color: #7289da;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th colspan="5">LIST PERTANDINGAN GRUP STAGE</th>
+    </tr>
+    <tr> 
+      <th>Grup</th>
+      <th>Tim</th>
+      <th>Waktu</th>
+      <th>Pemenang</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+      <td rowspan="2">A</td>
+      <td>A VS D</td>
+      <td>28 Mei 2023, 13:00 </td>
+      <td>-</td>
+      <td>
+        <a href="#">[Update]</a>
+      </td>
+    </tr>
+    <tr>
+      <td>E VS H</td>
+      <td>-</td>
+      <td>-</td>
+      <td>
+        <a href="#">[Update]</a>
+      </td>
+    </tr>
+    <tr>
+        <td rowspan="2">-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>
+        </td>
+      </tr>
+    <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+      <th colspan="5"><a href="#">[Save]</a></th>
+    </tr>

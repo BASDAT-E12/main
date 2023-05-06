@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'landing_page', 
     'kelola_tim', 
     'history_rapat',
+    'manage_pertandingan',
+    'cru_peminjaman_stadium'
 ]
 
 MIDDLEWARE = [
