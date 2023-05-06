@@ -22,4 +22,7 @@ urlpatterns = [
     path('landing_page/', include('landing_page.urls')), 
     path('kelola_tim/', include('kelola_tim.urls')), 
     path('history_rapat/', include('history_rapat.urls')), 
+    path('membuat_pertandingan/', include('membuat_pertandingan.urls')),
+    path('mulai_pertandingan/', include('mulai_pertandingan.urls')),
+    path('mulai_rapat/', include('mulai_rapat.urls')),
 ]
