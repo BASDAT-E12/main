@@ -8,9 +8,22 @@
 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<div class="position-relative">
+  <div class="row align-items-center">
+    <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
+    height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
+    <div class="position-absolute bottom-0 start-50 translate-middle text-center">
+      <h1 class="pb-3">Team Management</h1>
+    </div>
+    <hr style="border-width: 1px;  
+    width: 90%; 
+    margin-left: auto;
+    margin-right: auto;">
+  </div>
+</div>
 <div class="container">
   <div class="row">
-    <div class="my-5 d-flex justify-content-center align-items-center">
+    <div class="pt-1 pb-3 d-flex justify-content-center align-items-center">
     </div>
     <div class="col-md-6 mx-auto">
       <div class="card">
@@ -32,9 +45,33 @@
           </form>
           <div class="my-2 d-flex justify-content-center align-items-center">
           </div>
-          <input class="btn btn-primary" type="submit" value="Submit">
+          <div class="text-end">
+            <input class="btn btn-primary text-end" type="submit" value="Submit" data-bs-toggle="modal" data-bs-target="#popUp">
+          </div>
+          
+          
+          
+          <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="window.location.href='/kelola_tim/list_tim/'"></button>
+                </div>
+                <div class="modal-body text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                  </svg>
+                  <div class="my-1 d-flex justify-content-center align-items-center">
+                  </div>
+                  <p>Form Submitted</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="my-2 d-flex justify-content-center align-items-center"></div>
     </div>
   </div>
 </div>
