@@ -9,6 +9,9 @@
   /* Aspect ratio IS maintained */
   object-fit: cover;
 }
+.navbar .dropdown-toggle::after {
+  display: none;
+}
 </style>
 {% endblock meta %}
 
@@ -25,12 +28,21 @@
           <a class="nav-link" href="/landing_page/panitia">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Set Meeting</a>
+          <a class="nav-link" href="/mulai_rapat/">Conduct Meeting</a>
         </li>
         <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Manage Match</a>
-        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Match
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Manage Match</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/mulai_pertandingan/">Conduct Match</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/membuat_pertandingan/">Create Match</a></li>
+            </ul>
+          </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Welcome, User
@@ -130,7 +142,7 @@
                   </div>
                 </div>
             </div>
-            
+
           <!-- <div class="col">
             <div class="card">
               <div class="card-body">
