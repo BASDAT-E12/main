@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List Pemesanan</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f3f5;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 600px;
+      max-width: 90%;
+      background-color: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 2px 0 rgba(0,0,0,.05), 0 3px 0 rgba(0,0,0,.05);
+    }
+    
+    th, td {
+      border: none;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #f2f3f5;
+    }
+    
+    th {
+      background-color: #7289da;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    a {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background-color: #ffffff;
+      color: #677bc4;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    
+    a:hover {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th colspan="2">List Pemesanan</th>
+    </tr>
+    <tr> 
+      <th>Stadium</th>
+      <th>Waktu</th>
+    </tr>
+    <tr>
+      <td>Stadium A</td>
+      <td>14:00</td>
+    </tr>
+    <tr>
+      <td>Stadium B</td>
+      <td>16:00</td>
+    </tr>
+    <tr>
+      <td>Stadium C</td>
+      <td>18:00</td>
+    </tr>
+    <tr>
+      <td>Old Trafford</td>
+      <td>20:00</td>
+    </tr>
+    <tr>
+      <td>GBK Arena</td>
+      <td>22:00</td>
+    </tr>
+    <tr>
+      <th colspan="2"><a href="#">[PESAN]</a></th>
+    </tr>
+  </table>
+</body>
+</html>
