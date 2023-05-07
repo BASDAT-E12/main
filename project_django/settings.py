@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     'history_rapat',
     'membuat_pertandingan',
     'mulai_pertandingan',
-    'mulai_rapat'
+    'mulai_rapat',
+    'pengguna', 
+    'pembelian_tiket', 
+    'list_pertandingan', 
 ]
 
 MIDDLEWARE = [
