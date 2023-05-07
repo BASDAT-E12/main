@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'kelola_tim', 
     'history_rapat',
     'manage_pertandingan',
-    'cru_peminjaman_stadium'
+    'cru_peminjaman_stadium',
     'membuat_pertandingan',
     'mulai_pertandingan',
     'mulai_rapat',
