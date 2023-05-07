@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pemilihan Stadium</title>
+    <style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f2f3f5;
+    }
+
+    h3 {
+        text-align: center;
+    }
+
+    .container {
+        background-color: #ffffff;
+        border-radius: 4px;
+        padding: 20px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 3px 3px 3px #888888;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .form-group select {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #f2f3f5;
+        font-family: Arial, sans-serif;
+
+    } 
+
+    .form-group input[type="date"] {
+      padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #f2f3f5;
+        font-family: Arial, sans-serif;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      padding: 4px;
+      font-weight: 700;
+    }
+
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h3>PEMBUATAN PERTANDINGAN</h3>
+    <div class="form-group">
+      <label for="stadium">Stadium:</label>
+      <select id="stadium" name="stadium">
+        <option value="A">Stadium A</option>
+        <option value="B">Stadium B</option>
+        <option value="B">Stadium C</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="tanggal">Tanggal:</label>
+      <input type="date" id="date" name="date">
+    </div>
+    <a href="{% url 'membuat_pertandingan:choose_time' %}" class = 'button'>[NEXT]</a>
+  </div>
+</body>
+</html>

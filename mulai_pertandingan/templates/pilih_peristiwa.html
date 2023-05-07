@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List Pertandingan</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f3f5;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 600px;
+      max-width: 90%;
+      background-color: #ffffff;
+      border-radius: 4px;
+      box-shadow: 3px 3px 3px #888888;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group select {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #f2f3f5;
+        font-family: Arial, sans-serif;
+    }
+    
+    th, td {
+      border: none;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #f2f3f5;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    a {
+      text-align: center;
+      padding: 4px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    
+    a:hover {
+      background-color: #f9f9f9;
+    }
+    
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th colspan="2">Pilih Peristiwa Tim [Nama Tim]</th>
+    </tr>
+    <tr> 
+      <th>Nama Pemain</th>
+      <th>Peristiwa</th>
+
+    </tr>
+    <tr>
+    <td>
+        <div class="form-group">
+            <select id="pemain" name="pemain">
+            <option value="None">None</option>
+            <option value="Lionel Messi">Lionel Messi</option>
+            <option value="Cristiano Ronaldo">Cristiano Ronaldo</option>
+            <option value="Pele">Pele</option>
+            </select>
+        </div>
+    </td>
+      <td>
+        <div class="form-group">
+            <select id="peristiwa" name="peristiwa">
+                <option value="None">None</option>
+                <option value="Kartu Kuning">Kartu Kuning</option>
+                <option value="Kartu Merah">Kartu Merah</option>
+                <option value="Assist">Assist</option>
+                <option value="Gol">Gol</option>
+            </select>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div class="form-group">
+            <select id="pemain" name="pemain">
+                <option value="None">None</option>
+                <option value="Lionel Messi">Lionel Messi</option>
+                <option value="Cristiano Ronaldo">Cristiano Ronaldo</option>
+                <option value="Pele">Pele</option>
+            </select>
+        </div>
+    </td>
+      <td>
+        <div class="form-group">
+            <select id="peristiwa" name="peristiwa">
+                <option value="None">None</option>
+                <option value="Kartu Kuning">Kartu Kuning</option>
+                <option value="Kartu Merah">Kartu Merah</option>
+                <option value="Assist">Assist</option>
+                <option value="Gol">Gol</option>
+            </select>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div class="form-group">
+            <select id="pemain" name="pemain">
+                <option value="None">None</option>
+                <option value="Lionel Messi">Lionel Messi</option>
+                <option value="Cristiano Ronaldo">Cristiano Ronaldo</option>
+                <option value="Pele">Pele</option>
+            </select>
+        </div>
+    </td>
+      <td>
+        <div class="form-group">
+            <select id="peristiwa" name="peristiwa">
+            <option value="None">None</option>
+            <option value="Kartu Kuning">Kartu Kuning</option>
+            <option value="Kartu Merah">Kartu Merah</option>
+            <option value="Assist">Assist</option>
+            <option value="Gol">Gol</option>
+            </select>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div class="form-group">
+            <select id="pemain" name="pemain">
+                <option value="None">None</option>
+                <option value="Lionel Messi">Lionel Messi</option>
+                <option value="Cristiano Ronaldo">Cristiano Ronaldo</option>
+                <option value="Pele">Pele</option>
+            </select>
+        </div>
+    </td>
+      <td>
+        <div class="form-group">
+            <select id="peristiwa" name="peristiwa">
+            <option value="None">None</option>
+            <option value="Kartu Kuning">Kartu Kuning</option>
+            <option value="Kartu Merah">Kartu Merah</option>
+            <option value="Assist">Assist</option>
+            <option value="Gol">Gol</option>
+            </select>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+        <div class="form-group">
+            <select id="pemain" name="pemain">
+                <option value="None">None</option>
+                <option value="Lionel Messi">Lionel Messi</option>
+                <option value="Cristiano Ronaldo">Cristiano Ronaldo</option>
+                <option value="Pele">Pele</option>
+            </select>
+        </div>
+    </td>
+    <td>
+        <div class="form-group">
+            <select id="peristiwa" name="peristiwa">
+            <option value="None">None</option>
+            <option value="Kartu Kuning">Kartu Kuning</option>
+            <option value="Kartu Merah">Kartu Merah</option>
+            <option value="Assist">Assist</option>
+            <option value="Gol">Gol</option>
+            </select>
+        </div>
+    </td>
+    </tr>
+    <tr>
+        <td colspan ='2'><a href="#" class = 'button'>[SUBMIT]</a></td>
+    </tr>
+  </table>
+</body>
+</html>

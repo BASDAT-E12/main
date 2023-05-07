@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Membuat pertandingan</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f3f5;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 500px;
+            max-width: 100%;
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 3px 3px 3px #888888;
+        }
+
+        th{
+            border: none;
+            padding: 16px;
+            border-bottom: 1px solid #f2f3f5;
+        }
+
+        td{
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .label {
+            font-weight: 300;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #f2f3f5;
+            font-family: Arial, sans-serif;
+        }
+        
+
+        a {
+        text-align: center;
+        padding: 4px;
+        text-decoration: none;
+        font-weight: 700;
+        }
+        
+        a:hover {
+        background-color: #f9f9f9;
+        }
+
+    </style>
+    </head>
+    <body>
+    <table>
+        <tr>
+        <th colspan="2">Membuat Pertandingan</th>
+        </tr>
+        <tr>
+            
+            <td><div class="label">Pilih Wasit Utama: <br><br>
+                Pilih Wasit Pembantu/Hakim Garis:<br><br>
+                Pilih Wasit Pembantu/Hakim Garis:<br><br>
+                Pilih Wasit Cadangan:<br>
+            </div>
+            </td>
+            </div>
+            <td>
+                <div class="form-group">
+                    <select id="wasit" name="wasit">
+                      <option value="Andy Park">Andy Park</option>
+                      <option value="Ahmad Dani">Ahmad Dani</option>
+                      <option value="Muhammad Yamin">Muhammad Yamin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="wasit" name="wasit">
+                      <option value="Andy Park">Andy Park</option>
+                      <option value="Ahmad Dani">Ahmad Dani</option>
+                      <option value="Muhammad Yamin">Muhammad Yamin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="wasit" name="wasit">
+                      <option value="Andy Park">Andy Park</option>
+                      <option value="Ahmad Dani">Ahmad Dani</option>
+                      <option value="Muhammad Yamin">Muhammad Yamin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select id="wasit" name="wasit">
+                      <option value="Andy Park">Andy Park</option>
+                      <option value="Ahmad Dani">Ahmad Dani</option>
+                      <option value="Muhammad Yamin">Muhammad Yamin</option>
+                    </select>
+                </div>
+            </td>
+        <tr>
+            <td>Tim 1</td>
+            <td>Tim 2</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group">
+                    <select id="tim" name="tim">
+                    <option value="Chelsea">Chelsea</option>
+                    <option value="MU">MU</option>
+                    <option value="Arsenal">Arsenal</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <select id="tim" name="tim">
+                      <option value="Chelsea">Chelsea</option>
+                      <option value="MU">MU</option>
+                      <option value="Arsenal">Lemper Ayam</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><a href=" ">[Submit]</a></th>
+            </tr>
+    </table>
+    </body>
+</html>
