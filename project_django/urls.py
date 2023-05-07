@@ -25,4 +25,7 @@ urlpatterns = [
     path('login_logout/', include('login_logout.urls')),
     path('cru_peminjaman_stadium/', include('cru_peminjaman_stadium.urls')),
     path('manage_pertandingan/', include('manage_pertandingan.urls')), 
+    path('membuat_pertandingan/', include('membuat_pertandingan.urls')),
+    path('mulai_pertandingan/', include('mulai_pertandingan.urls')),
+    path('mulai_rapat/', include('mulai_rapat.urls')),
 ]

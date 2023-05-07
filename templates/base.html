@@ -6,12 +6,87 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <style>
+    .cover {
+      /* Image is scaled to fill the container. */
+      /* Aspect ratio IS maintained */
+      object-fit: cover;
+    }
+  </style>
   {% block meta %}
+  
   {% endblock meta %}
 </head>
 
 <body>
+
+  <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav nav-underline justify-content-between w-100">
+          <li class="nav-item">
+            <a class="nav-link" href="/landing_page/">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/kelola_tim/">Team Management</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Stadium Booking</a>
+          </li>
+          <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Match Schedule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/history_rapat/">Meeting Records</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Welcome, User
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Logout 
+                <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.75 1.77778L6.1155 2.40444L7.2765 3.55556H2.7V4.44444H7.2765L6.1155 5.59111L6.75 6.22222L9 4L6.75 1.77778ZM0.9 0.888889H4.5V0H0.9C0.405 0 0 0.4 0 0.888889V7.11111C0 7.6 0.405 8 0.9 8H4.5V7.11111H0.9V0.888889Z" fill="black"/>
+                </svg>                           
+              </a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <!-- <div class="container-fluid">
+    <div class="row align-items-center">
+      <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
+      height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
+      <hr style="border-width: 1px;  
+      width: 90%; 
+      margin-left: auto;
+      margin-right: auto;">
+    </div>
+  </div> -->
+  <!-- <div class="position-relative">
+    <div class="row align-items-center">
+      <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
+      height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
+      <div class="position-absolute bottom-0 start-50 translate-middle text-center">
+        <h1 class="pb-3">Dashboard</h1>
+      </div>
+      <hr style="border-width: 1px;  
+      width: 90%; 
+      margin-left: auto;
+      margin-right: auto;">
+    </div>
+  </div> -->
+  
   {% block content %}
+  
   {% endblock content %}
 </body>
 
