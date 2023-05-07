@@ -1,9 +1,9 @@
 from django.urls import path
-from membuat_pertandingan.views import *
+from mulai_rapat.views import *
 
 app_name = 'mulai_rapat'
 
 urlpatterns = [
-    path('', show_list_pertandingan, name='show_list_pertandingan'),
-
+    path('', choose_match, name='choose_match'),
+    path('rapat/', meeting, name='meeting'),
 ]
