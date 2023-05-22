@@ -49,7 +49,7 @@
     }
     
     .action-btn {
-      display: block;
+      
       text-align: center;
       padding: 12px;
       background-color: #4B7543;
@@ -88,15 +88,19 @@
 
   <div class="container">
     <div class="title">FORM LOGIN</div>
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username">
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password">
-    </div>
-    <a href="/landing_page/manajer/" class="action-btn">LOGIN</a>
+    <form method="POST" action="{% url 'authenticate' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <input class="action-btn" type="submit" value="LOGIN"/>
+    </form>
+    
   </div>
 </body>
 </html>
