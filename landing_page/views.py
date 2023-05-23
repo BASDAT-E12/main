@@ -30,7 +30,12 @@ def find_manajer(str):
     cur.execute(f"SELECT concat(nama_depan, ' ', nama_belakang) FROM non_pemain WHERE id = '{str}'")
     result = cur.fetchone()
     return result[0]
-    
+
+def find_status(id_non_pemain):
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    cur.execute(f"SELECT status FROM status_non_pemain WHERE id_non_pemain = '{id_non_pemain}'")
+    result = cur.fetchone()
+    return result[0]
 
 
 def get_role(request):
@@ -51,14 +56,30 @@ def get_role(request):
         nomor_hp = result[3]
         email = result[4]
         alamat = result[5]
-        status = "Manajer" #salah 
+        status = find_status(id)
 
         cur.execute(f"""SELECT nama_tim 
         FROM tim_manajer 
         WHERE id_manajer = '{id}'""")
         result = cur.fetchone()
-        nama_tim = result[0]
-
+        try:
+            nama_tim = result[0]
+        except TypeError as e:
+            check_tim = True
+            if(result is None):
+                check_tim = False
+                context = {
+                "id": id, 
+                "nama_depan": nama_depan, 
+                "nama_belakang": nama_belakang, 
+                "nomor_hp": nomor_hp, 
+                "email": email, 
+                "alamat": alamat, 
+                "status": status, 
+                "check_tim": check_tim, 
+                }
+            return show_landing_page_manajer(request, context)
+        
         # MENAMPILKAN DATA TIM (PEMAIN)
         
         cur.execute(f"SELECT * FROM pemain WHERE nama_tim = '{nama_tim}'")
@@ -76,7 +97,7 @@ def get_role(request):
             }
             for pemain in result_pemain
         ]
-           
+        
         # MENAMPILKAN DATA TIM (PELATIH)
 
         # ID PELATIH
@@ -109,6 +130,8 @@ def get_role(request):
             "table_pemain": table_pemain, 
             "table_pelatih": table_pelatih,
             "table_pemain": table_pemain,
+            "nama_tim": nama_tim, 
+            "check_tim": check_tim, 
         }
 
         return show_landing_page_manajer(request, context)
@@ -127,7 +150,8 @@ def get_role(request):
         nomor_hp = result[3]
         email = result[4]
         alamat = result[5]
-        status = "Panitia"
+        status = find_status(id)
+
 
         cur.execute(f"""
         SELECT jabatan
@@ -145,17 +169,31 @@ def get_role(request):
         """)
         result_rapat = cur.fetchall()
         table_rapat = []
-        table_rapat = [
-            {
-                "id_pertandingan": r[0],
-                "tim_bertanding" : r[1], 
-                "manajer_tim_a": find_manajer(r[2]),
-                "manajer_tim_b": find_manajer(r[3]), 
-                "tgl_rapat": r[4], 
+        if (result_rapat == []): 
+            context = {
+                "id": id, 
+                "nama_depan": nama_depan, 
+                "nama_belakang": nama_belakang, 
+                "nomor_hp": nomor_hp, 
+                "email": email, 
+                "alamat": alamat, 
+                "status": status, 
+                "jabatan": jabatan,
+                "check_rapat": None, 
             }
-            for r in result_rapat
-        ]
-
+            return render(request, "landing_page_panitia.html", context)  
+        else:
+           table_rapat = [
+                {
+                    "id_pertandingan": r[0],
+                    "tim_bertanding" : r[1], 
+                    "manajer_tim_a": find_manajer(r[2]),
+                    "manajer_tim_b": find_manajer(r[3]), 
+                    "tgl_rapat": r[4], 
+                }
+                for r in result_rapat
+            ]
+        
         context = {
             "id": id, 
             "nama_depan": nama_depan, 
@@ -167,6 +205,7 @@ def get_role(request):
             "jabatan": jabatan,
             "table_rapat": table_rapat, 
             "result_rapat": result_rapat, 
+            "check_rapat": "isi", 
         }
         return render(request, "landing_page_panitia.html", context)
     
@@ -184,7 +223,8 @@ def get_role(request):
         nomor_hp = result[3]
         email = result[4]
         alamat = result[5]
-        status = "Penonton"
+        status = find_status(id)
+
 
         cur.execute(f"""
         SELECT id_pertandingan, string_agg(nama_tim, ' vs '), stadium, start_datetime, end_datetime, jenis_tiket
@@ -195,6 +235,21 @@ def get_role(request):
         GROUP BY id_pertandingan, stadium, start_datetime, end_datetime, jenis_tiket;""")
         
         result_pertandingan = cur.fetchall()
+        ada_pertandingan = True
+
+        if(result_pertandingan == []):
+            ada_pertandingan = False
+            context = {
+            "id": id, 
+            "nama_depan": nama_depan, 
+            "nama_belakang": nama_belakang, 
+            "nomor_hp": nomor_hp, 
+            "email": email, 
+            "alamat": alamat, 
+            "status": status, 
+            "ada_pertandingan": ada_pertandingan, 
+            }
+            return render(request, "landing_page_penonton.html", context)
         
         cur.execute(f"""SELECT nama FROM stadium WHERE id_stadium 
         IN (SELECT stadium 
@@ -225,6 +280,7 @@ def get_role(request):
             "alamat": alamat, 
             "status": status, 
             "table_pertandingan": table_pertandingan, 
+            "ada_pertandingan": "Ada", 
         }
         return render(request, "landing_page_penonton.html", context)
     cur.close()
@@ -233,6 +289,9 @@ def get_role(request):
 
 def show_landing_page_manajer(request, context):
     return render(request, "landing_page_manajer.html", context)
+
+def back_landing_page_manajer(request):
+    return render(request, "landing_page_manajer.html")
 
 def show_landing_page_penonton(request):
     return render(request, "landing_page_penonton.html")

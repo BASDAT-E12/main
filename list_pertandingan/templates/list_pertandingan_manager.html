@@ -73,11 +73,17 @@
           <a class="nav-link" href="/landing_page/">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/pembelian_tiket/">Ticket Purchasing</a>
+          <a class="nav-link" href="/kelola_tim/">Team Management</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cru_peminjaman_stadium/">Stadium Booking</a>
         </li>
         <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
         <li class="nav-item">
-          <a class="nav-link" href="/list_pertandingan/penonton">Match Schedule</a>
+          <a class="nav-link" href="/list_pertandingan/manajer">Match Schedule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/history_rapat/">Meeting Records</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,7 +106,7 @@
       <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
       height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
       <div class="position-absolute bottom-0 start-50 translate-middle text-center">
-        <h1 class="pb-3">Ticket Purchasing</h1>
+        <h1 class="pb-3">Match Schedule</h1>
       </div>
       <hr style="border-width: 1px;  
       width: 90%; 
@@ -116,12 +122,20 @@
             <th colspan="2">List Waktu Stadium [Nama Stadium]</th>
             </tr>
             <tr> 
-            <th>List Waktu</th>
-            <th>Action</th>
+            <th>Tim Bertanding</th>
+            <th>Stadium</th>
+            <th>Tanggal dan Waktu</th>
+            <th></th>
             </tr>
             <tr>
-                <td>07:00 - 09.00</td>
-                <td><a href="{% url 'pembelian_tiket:list_pertandingan_tiket' %}">[Next]</a></td>
+                <td>A vs B</td>
+                <td>Stadium GBK</td>
+                <td>5 Juli 2023, 07.00 - 09.00</td>
+            </tr>
+            <tr>
+                <td>C vs D </td>
+                <td>Stadium GBK</td>
+                <td>7 Juli 2023, 13.00 - 15.00</td>
             </tr>
         </table>
     </div>

@@ -26,7 +26,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav nav-underline justify-content-between w-100">
         <li class="nav-item">
-          <a class="nav-link" href="/landing_page/panitia">Dashboard</a>
+          <a class="nav-link" href="/landing_page/">Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/mulai_rapat/">Conduct Meeting</a>
@@ -88,7 +88,7 @@
         <h3>{{nama_depan}} {{nama_belakang}}</h3>
       </div>   
       <div  class="col-md-12 d-flex justify-content-center align-items-center">
-        <span class="badge rounded-pill text-bg-success">Panitia</span>
+        <span class="badge rounded-pill text-bg-success" style="text-transform: capitalize;">{{status}}</span>
       </div> 
       <div  class="col-md-12 d-flex justify-content-center align-items-center mt-1">
         <p class="text-muted"><small>{{jabatan}}</small></p>
@@ -108,22 +108,34 @@
       <div  class="col-md-12 d-flex justify-content-center align-items-center pb-2"></div>   
     </div>
     <div class="row align-items-center py-1" >
-        <h3 class="text-center"> Upcoming Meeting </h3>
+        <h3 class="text-center"> Upcoming Meeting</h3>
         <div  class="col-md-12 d-flex justify-content-center align-items-center pb-3"></div>   
+        {% if check_rapat == None %}
+        <div class="alert alert-warning text-center" role="alert">
+          Tidak ada rapat. 
+        </div>
+        
         <div class="col-md-12">
+        
         <div class="row row-cols-1 row-cols-md-2 g-4">
+          {% else %}
+          <script>
+            console.log(table_rapat)
+          </script>
             {% for r in table_rapat %}
             <div class="col">
                 <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Rapat Pertandingan {{r.tim_bertanding}} </h5>
-                    <p class="d-inline-block ps-2"><b>Anggota rapat: </b>{{nama_depan}} {{nama_belakang}}, {{r.manajer_tim_a}}, {{r.manajer_tim_b}}</p>
+                  <div class="card-body">  
                     <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">{{r.tgl_rapat}}</span> </h6>
+                    <h5 class="card-title">Rapat Pertandingan <b>{{r.tim_bertanding}}</b> </h5>
+                    <p class="d-inline-block"><b>Anggota rapat: </b>{{nama_depan}} {{nama_belakang}}, {{r.manajer_tim_a}}, {{r.manajer_tim_b}}</p>
                   </div>
                 </div>
             </div>
             {% endfor %}
+      </div>
     </div>
+    {% endif %}
   </div>
 </form>
  
