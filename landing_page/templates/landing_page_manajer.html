@@ -26,7 +26,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav nav-underline justify-content-between w-100">
         <li class="nav-item">
-          <a class="nav-link" href="/landing_page/manajer">Dashboard</a>
+          <a class="nav-link" href="/landing_page/">Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/kelola_tim/">Team Management</a>
@@ -36,7 +36,7 @@
         </li>
         <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
         <li class="nav-item">
-          <a class="nav-link" href="#">Match Schedule</a>
+          <a class="nav-link" href="/list_pertandingan/manajer">Match Schedule</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/history_rapat/">Meeting Records</a>
@@ -46,7 +46,7 @@
             Welcome, User
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/login_logout/">Logout 
+            <li><a class="dropdown-item" href="/logout/">Logout 
               <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.75 1.77778L6.1155 2.40444L7.2765 3.55556H2.7V4.44444H7.2765L6.1155 5.59111L6.75 6.22222L9 4L6.75 1.77778ZM0.9 0.888889H4.5V0H0.9C0.405 0 0 0.4 0 0.888889V7.11111C0 7.6 0.405 8 0.9 8H4.5V7.11111H0.9V0.888889Z" fill="black"/>
               </svg>                           
@@ -71,7 +71,8 @@
   </div>
 </div>
 <!-- copas sampe sini -->
- <div class="container-fluid">
+<form method="POST" action="{% url 'landing_page:index' %}">
+  <div class="container-fluid">
     <div class="row align-items-center">
       <!-- <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
       height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
@@ -82,91 +83,106 @@
       <div class="my-2 d-flex justify-content-center align-items-center pt-1">
       </div>
       <div  class="col-md-12 d-flex justify-content-center align-items-center">
-        <h3>Hannah Montana</h3>
+        <h3 style="text-transform: capitalize;">{{nama_depan}} {{nama_belakang}}</h3>
       </div>   
       <div  class="col-md-12 d-flex justify-content-center align-items-center">
-        <span class="badge rounded-pill text-bg-info">Manajer</span>
+        <span class="badge rounded-pill text-bg-info" style="text-transform: capitalize;">{{status}}</span>
       </div>    
       <div class="col-md-12 d-flex justify-content-center align-items-center">
       </div>
       <div class="col-md-12 d-flex justify-content-center align-items-center">
-        <p class="mx-2"><small class="text-muted">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+        <p class="mx-2" ><small class="text-muted">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
           <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
-        </svg> johdone@gmail.com </small></p>
-        <p class="mx-2"><small class="text-muted"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+        </svg> {{email}} </small></p>
+        <p class="mx-2"  style="text-transform: capitalize;"><small class="text-muted"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
-        </svg> 081234567890 </small></p>
-        <p class="mx-2"><small class="text-muted"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+        </svg> {{nomor_hp}} </small></p>
+        <p class="mx-2"  style="text-transform: capitalize;"><small class="text-muted"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
           <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z"/>
-        </svg> Jalan Kiri Kanan No. 50, ID 17829</small></p>
+        </svg> {{alamat}} </small></p>
         
       </div>
       <div  class="col-md-12 d-flex justify-content-center align-items-center pb-5">
 
       </div>   
     </div>
-    <div class="row align-items-center" >
-      <!-- <div class="col-md-12">
-        <div class="row row-cols-1 row-cols-md-2 g-4"> -->
-          <div class="col">
-            <div class="card">
-              <div class="card-header">
-                <h4>Team Name</h4>
-              </div>
-              <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-body-secondary">Team Details</h6>
-                <h5 class="card-text"><b>Pemain: A, B, C </b></h5>
-                  <p class="card-text"><span class="badge rounded-pill text-bg-warning"><b>Pelatih: A, B</b></span</p>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div> -->
-        <!-- </div>
-      </div> -->
-      <!-- <div class="col-md-6">
-       
-      </div> -->
+    {% if check_tim == False %}
+    <div class="alert alert-warning text-center" role="alert">
+      Belum mendaftarkan tim.
     </div>
+    {% else %}
+    <div class="row align-items-center" >
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="text-center">{{nama_tim}}</h4>
+            <h6 class="card-subtitle mb-2 text-body-secondary text-center">Team Details</h6>
+          </div>
+        <div class="card-body">
+              <table class="table table-bordered ">
+                <thead class="table-secondary">
+                  <tr>
+                    <th scope="col" colspan="8" class="text-center">Pemain</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="text-center">Nama Pemain</th>
+                    <th scope="col" class="text-center">No HP</th>
+                    <th scope="col" class="text-center">Tanggal Lahir</th>
+                    <th scope="col" class="text-center">Is Captain</th>
+                    <th scope="col" class="text-center">Posisi</th>
+                    <th scope="col" class="text-center">NPM</th>
+                    <th scope="col" class="text-center">Jenjang</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center" style="text-transform: capitalize;">
+                  
+                  {% for pemain in table_pemain %}
+                  <tr>
+                    <th scope="col">{{pemain.nama_pemain}}</th>
+                    <td>{{pemain.no_hp_pemain}}</td>
+                    <td>{{pemain.tgl_lahir_pemain}}</td>
+                    <td>{{pemain.is_captain}}</td>
+                    <td>{{pemain.posisi_pemain}}</td>
+                    <td>{{pemain.npm}}</td>
+                    <td>{{pemain.jenjang_pemain}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <thead class="table-secondary">
+                  <tr>
+                      <th scope="col" colspan="8" class="text-center">Pelatih</th>
+                  </tr>
+                  <tr>
+                     <tr>
+                    <th scope="col" class="text-center">Nama Pelatih</th>
+                    <th scope="col" class="text-center">No HP</th>
+                    <th scope="col" class="text-center">Email</th>
+                    <th scope="col" class="text-center" colspan="2">Alamat</th>
+                    <th scope="col" class="text-center" colspan="2">Spesialisasi</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  {% for pelatih in table_pelatih %}
+                  <tr>
+                  <th scope="row">{{pelatih.nama_pelatih}}</th>
+                    <td>{{pelatih.nomor_hp}}</td>
+                    <td>{{pelatih.email}}</td>
+                    <td colspan="2">{{pelatih.alamat}}</td>
+                    <td colspan="2">{{pelatih.spesialisasi}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
   </div>
+    {% endif %}
+
+    
+  </div>
+</form>
+ 
   
  
   
