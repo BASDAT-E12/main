@@ -5,5 +5,5 @@ app_name = 'list_pertandingan'
 
 urlpatterns = [
     path('penonton/', list_pertandingan_penonton, name='list_pertandingan_penonton'),
-    path('manajer/', list_pertandingan_manager, name='list_pertandingan_manajer'),
+    path('manajer/', list_pertandingan_manager, name='list_pertandingan_manager'),
 ]
