@@ -3,13 +3,11 @@ import psycopg2
 from collections import namedtuple
 
 # Create your views here.
-<<<<<<< HEAD
-def list_pertandingan_penonton(request):
-    return render(request, "list_pertandingan_penonton.html")
+# def list_pertandingan_penonton(request):
+#     return render(request, "list_pertandingan_penonton.html")
 
-def list_pertandingan_manager(request):
-    return render(request, "list_pertandingan_manager.html")
-=======
+# def list_pertandingan_manager(request):
+#     return render(request, "list_pertandingan_manager.html")
 
 DB_NAME = "railway"
 DB_HOST = "containers-us-west-63.railway.app"
@@ -52,4 +50,3 @@ def namedtuplefetchall(cur):
     nt_result = namedtuple('Result', [col[0] for col in dsc]) 
     return [nt_result(*row) for row in cur.fetchall()]
 
->>>>>>> 3d8f74a49d196fa18e718fda8403587dd6921851
