@@ -28,7 +28,7 @@
         
         table {
             border-collapse: collapse;
-            width: 600px;
+            width: 1000px;
             max-width: 90%;
             background-color: #ffffff;
             border-radius: 4px;
@@ -118,25 +118,25 @@
 <body>
     <div class="table">
         <table>
+          <thead>
             <tr>
-            <th colspan="2">List Waktu Stadium [Nama Stadium]</th>
+            <th colspan="3">List Pertandingan</th>
             </tr>
-            <tr> 
-            <th>Tim Bertanding</th>
-            <th>Stadium</th>
-            <th>Tanggal dan Waktu</th>
-            <th></th>
-            </tr>
-            <tr>
-                <td>A vs B</td>
-                <td>Stadium GBK</td>
-                <td>5 Juli 2023, 07.00 - 09.00</td>
-            </tr>
-            <tr>
-                <td>C vs D </td>
-                <td>Stadium GBK</td>
-                <td>7 Juli 2023, 13.00 - 15.00</td>
-            </tr>
+              <tr> 
+                <th>Tim Bertanding</th>
+                <th>Stadium</th>
+                <th>Tanggal dan Waktu</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pertandingan in pertandingan %}
+              <tr>
+                <td>{{ pertandingan.tim }}</td>
+                <td>{{ pertandingan.nama_stadium }}</td>
+                <td>{{ pertandingan.datetime }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
         </table>
     </div>
     </body>
