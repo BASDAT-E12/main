@@ -32,74 +32,73 @@
           <h5 class="card-title text-center">Form Registrasi</h5>
           <div class="my-2 d-flex justify-content-center align-items-center">
           </div>
-          <form>
+          <form method="POST">
+            {% csrf_token %}
             <div class="form-group">
-              <label for="firstName"><b>Username:</b></label>
-              <input type="text" class="form-control" id="firstName" placeholder="Enter your username">
+              <label for="username"><b>Username:</b></label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center"></div>
+            <div class="form-group">
+              <label for="password"><b>Password:</b></label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"required>
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center"></div>
+            <div class="form-group">
+              <label for="nama_depan"><b>Nama Depan:</b></label>
+              <input type="text" class="form-control" id="nama_depan" name="nama_depan" placeholder="Enter your first name"required>
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center"></div>
+            <div class="form-group">
+              <label for="nama_belakang"><b>Nama Belakang:</b></label>
+              <input type="text" class="form-control" id="nama_belakang" name="nama_belakang" placeholder="Enter your last name"required>
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center"></div>
+            <div class="form-group">
+              <label for="no_hp"><b>Nomor HP:</b></label>
+              <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Enter your phone number"required>
             </div>
             <div class="my-2 d-flex justify-content-center align-items-center">
             </div>
             <div class="form-group">
-                <label for="firstName"><b>Password:</b></label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter your password">
-              </div>
-              <div class="form-group">
-                <label for="firstName"><b>Nama Depan:</b></label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
-              </div>
-              <div class="my-2 d-flex justify-content-center align-items-center">
-              </div>
-              <div class="form-group">
-                  <label for="firstName"><b>Nama Belakang:</b></label>
-                  <input type="text" class="form-control" id="firstName" placeholder="Enter your last name">
-                </div>
-                <div class="form-group">
-                    <label for="firstName"><b>Nomor HP:</b></label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter your phone number">
-                  </div>
-                  <div class="my-2 d-flex justify-content-center align-items-center">
-                  </div>
-                  <div class="form-group">
-                      <label for="firstName"><b>Email:</b></label>
-                      <input type="text" class="form-control" id="firstName" placeholder="Enter your Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="firstName"><b>Alamat:</b></label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter your Address">
-                      </div>
-                      <div class="my-2 d-flex justify-content-center align-items-center">
-                      </div>
-                      <div class="form-group">
-                        <label for="status">Status:</label><br>
-                        <input type="radio" id="mahasiswa" name="status" value="mahasiswa">
-                        <label for="mahasiswa">Mahasiswa</label><br>
-                        <input type="radio" id="dosen" name="status" value="dosen">
-                        <label for="dosen">Dosen</label><br>
-                        <input type="radio" id="tendik" name="status" value="tendik">
-                        <label for="tendik">Tendik</label><br>
-                        <input type="radio" id="alumni" name="status" value="alumni">
-                        <label for="alumni">Alumni</label><br>
-                        <input type="radio" id="umum" name="status" value="umum">
-                        <label for="umum">Umum</label><br>                        
-                      </div>
-                      <div class="my-2 d-flex justify-content-center align-items-center">
-                      </div>
-                      <div class="form-group">
-                        <label for="firstName"><b>Jabatan:</b></label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Enter your Position">
-                      </div>
-                      <div class="my-2 d-flex justify-content-center align-items-center">
-                      </div>
-          </form>
+              <label for="email"><b>Email:</b></label>
+              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your Email"required>
+            </div>
+            <div class="form-group">
+              <label for="alamat"><b>Alamat:</b></label>
+              <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Enter your Address"required>
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center"></div>
+            <div class="form-group">
+              <label for="status">Status:</label><br>
+              <input type="radio" id="mahasiswa" name="status" value="mahasiswa">
+              <label for="mahasiswa">Mahasiswa</label><br>
+              <input type="radio" id="dosen" name="status" value="dosen">
+              <label for="dosen">Dosen</label><br>
+              <input type="radio" id="tendik" name="status" value="tendik">
+              <label for="tendik">Tendik</label><br>
+              <input type="radio" id="alumni" name="status" value="alumni">
+              <label for="alumni">Alumni</label><br>
+              <input type="radio" id="umum" name="status" value="umum">
+              <label for="umum">Umum</label><br>                        
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center">
+            </div>
+            <div class="form-group">
+              <label for="jabatan"><b>Jabatan:</b></label>
+              <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Enter your Position"required>
+            </div>
+            <div class="my-2 d-flex justify-content-center align-items-center">
+            </div>
           <div class="my-2 d-flex justify-content-center align-items-center">
           </div>
           <div class="text-end">
-            <input class="btn btn-success text-end" type="submit" value="Submit" data-bs-toggle="modal" data-bs-target="#popUp">
+            <!-- <button type="submit" class="btn btn-success text-end" data-bs-toggle="modal" data-bs-target="#popUp">Register</button> -->
+            <!-- <a href="{% url 'landing_page:show_landing_page_manajer'%}"></a> -->
+            <button type="submit" class="btn btn-success">Register</button>
           </div>
-          
-          
-          
-          <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
+          </form>
+          <!-- <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -113,10 +112,9 @@
                   </div>
                   <p>Form Submitted</p>
                 </div>
-                
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="my-2 d-flex justify-content-center align-items-center"></div>
