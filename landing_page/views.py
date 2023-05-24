@@ -61,11 +61,12 @@ def get_role(request):
         cur.execute(f"""SELECT nama_tim 
         FROM tim_manajer 
         WHERE id_manajer = '{id}'""")
-        result = cur.fetchone()
+        result = cur.fetchone() 
+        check_tim = True
         try:
             nama_tim = result[0]
         except TypeError as e:
-            check_tim = True
+            
             if(result is None):
                 check_tim = False
                 context = {
@@ -298,4 +299,5 @@ def show_landing_page_penonton(request):
 
 def show_landing_page_panitia(request):
     return render(request, "landing_page_panitia.html")
+
 

@@ -20,7 +20,7 @@
           <a class="nav-link" href="/landing_page/">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/kelola_tim/">Team Management</a>
+          <a class="nav-link" href="/kelola_tim/manager_check_team/">Team Management</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/cru_peminjaman_stadium/">Stadium Booking</a>
@@ -71,27 +71,27 @@
           <h5 class="card-title text-center">Register Your Team Here!</h5>
           <div class="my-2 d-flex justify-content-center align-items-center">
           </div>
-          <form>
+          <form method="post" action="{% url 'kelola_tim:create_tim' %}">
+            {% csrf_token %}
             <div class="form-group">
-              <label for="firstName"><b>Nama Tim:</b></label>
-              <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+              <label for="create_tim"><b>Nama Tim:</b></label>
+              <input type="text" class="form-control" name="nama_tim" id="create_tim" placeholder="Masukkan nama tim">
             </div>
             <div class="my-2 d-flex justify-content-center align-items-center">
             </div>
             <div class="form-group">
-                <label for="firstName"><b>Nama Universitas:</b></label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+                <label for="create_tim"><b>Nama Universitas:</b></label>
+                <input type="text" class="form-control" id="nama_univ" name="nama_univ" placeholder="Masukkan nama Universitas">
               </div>
-          </form>
+          
           <div class="my-2 d-flex justify-content-center align-items-center">
           </div>
           <div class="text-end">
-            <input class="btn btn-success text-end" type="submit" value="Submit" data-bs-toggle="modal" data-bs-target="#popUp">
-          </div>
-          
-          
-          
-          <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
+            <input class="btn btn-success text-end" type="submit">
+          </div> 
+        </form>
+          {{message}}
+          <!-- <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +108,7 @@
                 
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="my-2 d-flex justify-content-center align-items-center"></div>

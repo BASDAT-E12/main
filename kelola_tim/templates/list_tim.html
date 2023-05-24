@@ -63,10 +63,58 @@
   </div>
 </div>
 <div class="container px-1 pt-1">
+  <!-- gak ada pemain -->
+  {% if pemain == None %} 
+  <div class="alert alert-warning text-center" role="alert">
+    Tim belum memiliki pemain.
+  </div>
+  <!-- gak ada pelatih -->
+  {% if pelatih == None %}
+  <div class="alert alert-warning text-center" role="alert">
+    Tim belum memiliki pemain.
+  </div>
+  {% endif %}
+  <table class="table table-bordered">
+    <thead class="table-secondary">
+      <tr>
+          <th scope="col" colspan="8" class="text-center">Pelatih</th>
+      </tr>
+      <tr>
+         <tr>
+        <th scope="col" class="text-center">Nama Pelatih</th>
+        <th scope="col" class="text-center">No HP</th>
+        <th scope="col" class="text-center">Email</th>
+        <th scope="col" class="text-center" colspan="2">Alamat</th>
+        <th scope="col" class="text-center" colspan="2">Spesialisasi</th>
+        <th scope="col" class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      {% for p in pelatih %}
+      <form method="post" action="{% url 'kelola_tim:delete_pelatih' id=p.id_pelatih %}">
+      {% csrf_token %}
+      <tr  name="id_pelatih">
+        <th scope="row"  style="text-transform: capitalize;" >{{p.nama_pelatih}}</th>
+        <td  style="text-transform: capitalize;">{{p.nomor_hp}}</td>
+        <td>{{p.email}}</td>
+        <td colspan="2"  style="text-transform: capitalize;">{{p.alamat}}</td>
+        <td colspan="2"  style="text-transform: capitalize;">{{p.spesialisasi}}</td>
+        <td>
+          <button class="btn btn-danger" type="submit">Delete</button> 
+        </td>
+      </tr>
+    </form>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- ada pemain -->
+  {% else %}
+  
+  {% endif %}
   <table class="table table-bordered ">
     <thead class="table-secondary">
       <tr>
-        <th scope="col" colspan="8" class="text-center">Tim</th>
+        <th scope="col" colspan="8" class="text-center">{{nama_tim}}</th>
       </tr>
       <tr>
         <th scope="col" colspan="8" class="text-center">Pemain</th>
@@ -82,29 +130,30 @@
         <th scope="col" class="text-center">Action</th>
       </tr>
     </thead>
-    <tbody class="text-center">
-      <tr>
-
-        <th scope="row">John Doe</th>
-        
-        <td>081234567890</td>
-        <td>2023-01-01</td>
-        <td>Yes</td>
-        <td>Goal Keeper</td>
-        <td>2101234567</td>
-        <td>S1</td>
-        <td><button type="button" class="btn btn-danger">Delete</button></td>
-      </tr>
-      <tr>
-        <th scope="row">John Doe</th>
-        <td>081234567890</td>
-        <td>2023-01-01</td>
-        <td>No</td>
-        <td>Goal Keeper</td>
-        <td>2101234567</td>
-        <td>S1</td>
-        <td><button type="button" class="btn btn-success">Make Captain</button> <button type="button" class="btn btn-danger">Delete</button></td>
-      </tr>
+    <tbody class="text-center" style="text-transform: capitalize;">
+      {% for p in pemain %}
+      <!-- <form method="post" >
+        {% csrf_token %} -->
+        <tr name="{{p.id_pemain}}">
+          <th scope="row">{{p.nama_pemain}}</th>
+          <td>{{p.no_hp_pemain}}</td>
+          <td>{{p.tgl_lahir_pemain}}</td>
+          <td>{{p.is_captain}}</td>
+          <td>{{p.posisi_pemain}}</td>
+          <td>{{p.npm}}</td>
+          <td>{{p.jenjang_pemain}}</td>
+          {% if p.is_captain == True %}
+            <td><a href="{% url 'kelola_tim:delete_pemain' id=p.id_pemain %}"><button type="submit" class="btn btn-danger">Delete</button></a></td>
+          {% else %}
+          <td>
+            <a href="{% url 'kelola_tim:make_captain' id=p.id_pemain %}"><button type="submit" class="btn btn-success">Make Captain</button></a>
+            <a href="{% url 'kelola_tim:delete_pemain' id=p.id_pemain %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+          </td>
+          {% endif %}
+        </tr>
+      <!-- </form> -->
+    
+      {% endfor %}
     </tbody>
     <thead class="table-secondary">
       <tr>
@@ -121,22 +170,29 @@
       </tr>
     </thead>
     <tbody class="text-center">
-      <tr>
-        <th scope="row">John Doe</th>
-        <td>08123456789</td>
-        <td>johndoe@gmail.com</td>
-        <td colspan="2">Jalan jalan no.123</td>
-        <td colspan="2">. . .</td>
-        <td><button type="button" class="btn btn-danger">Delete</button></td>
+      {% for p in pelatih %}
+      <form method="post" action="{% url 'kelola_tim:delete_pelatih' id=p.id_pelatih %}">
+      {% csrf_token %}
+      <tr  name="id_pelatih">
+        <th scope="row"  style="text-transform: capitalize;" >{{p.nama_pelatih}}</th>
+        <td  style="text-transform: capitalize;">{{p.nomor_hp}}</td>
+        <td>{{p.email}}</td>
+        <td colspan="2"  style="text-transform: capitalize;">{{p.alamat}}</td>
+        <td colspan="2"  style="text-transform: capitalize;">{{p.spesialisasi}}</td>
+        <td>
+          <button class="btn btn-danger" type="submit">Delete</button> 
+        </td>
       </tr>
+    </form>
+      {% endfor %}
     </tbody>
 </table>
 
 <div class="container">
   <div class="row">
     <div class="col-md-8 mx-auto text-center">
-      <button class="btn btn-success mr-2"><a class="text-decoration-none text-white" href="/kelola_tim/pilih_pemain/">Add Player</a></button>
-      <button class="btn btn-success ml-2"><a class="text-decoration-none text-white" href='/kelola_tim/pilih_pelatih/'>Add Coach</a></button>
+      <button class="btn btn-success mr-2"><a class="text-decoration-none text-white" href="/kelola_tim/pilih_pemain_available/">Add Player</a></button>
+      <button class="btn btn-success ml-2"><a class="text-decoration-none text-white" href='/kelola_tim/pilih_pelatih_available/'>Add Coach</a></button>
       <div class="my-2 d-flex justify-content-center align-items-center"></div>
     </div>
   </div>
