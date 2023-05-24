@@ -22,4 +22,3 @@ def next_pertandinganbaru(request):
     
 def peristiwatim(request):
     return render(request, "peristiwatim.html")
-

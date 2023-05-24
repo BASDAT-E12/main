@@ -34,7 +34,7 @@
         </li>
         <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
         <li class="nav-item">
-          <a class="nav-link" href="#">Match Schedule</a>
+          <a class="nav-link" href="/list_pertandingan_penonton_manager/manager">Match Schedule</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/history_rapat/">Meeting Records</a>
@@ -84,20 +84,15 @@
         </tr>
       </thead>
       <tbody>
+        {% for rapat in rapat %}
         <tr>
-          <td>A vs B</td>
-          <td>XYZ</td>
-          <td>Stadium GBK</td>
-          <td>5 Juli 2023, 07.00</td>
-          <td><a href="#">Lihat laporan rapat</a></td>
+          <td>{{ rapat.tim }}</td>
+          <td>{{ rapat.nama_panitia }}</td>
+          <td>{{ rapat.nama_stadium }}</td>
+          <td>{{ rapat.datetime }}</td>
+          <td><a href="{% url 'history_rapat:show_isi_rapat' id=rapat.id_pertandingan%}">Lihat laporan rapat</a></td>
         </tr>
-        <tr>
-          <td>C vs D</td>
-          <td>XYZ</td>
-          <td>Stadium GBK</td>
-          <td>7 Juli 2023, 13.00</td>
-          <td><a href="#">Lihat laporan rapat</a></td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

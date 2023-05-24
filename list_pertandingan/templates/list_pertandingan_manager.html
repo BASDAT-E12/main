@@ -28,7 +28,7 @@
         
         table {
             border-collapse: collapse;
-            width: 600px;
+            width: 1000px;
             max-width: 90%;
             background-color: #ffffff;
             border-radius: 4px;
@@ -70,21 +70,27 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav nav-underline justify-content-between w-100">
         <li class="nav-item">
-          <a class="nav-link" href="/landing_page/penonton">Dashboard</a>
+          <a class="nav-link" href="/landing_page/manajer">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Ticket Purchasing</a>
+          <a class="nav-link" href="/kelola_tim/">Team Management</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cru_peminjaman_stadium/">Stadium Booking</a>
         </li>
         <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
         <li class="nav-item">
-          <a class="nav-link" href="#">Match Schedule</a>
+          <a class="nav-link" href="/list_pertandingan_penonton_manager/manager">Match Schedule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/history_rapat/">Meeting Records</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Welcome, User
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/login_logout/">Logout 
+            <li><a class="dropdown-item" href="#">Logout 
               <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.75 1.77778L6.1155 2.40444L7.2765 3.55556H2.7V4.44444H7.2765L6.1155 5.59111L6.75 6.22222L9 4L6.75 1.77778ZM0.9 0.888889H4.5V0H0.9C0.405 0 0 0.4 0 0.888889V7.11111C0 7.6 0.405 8 0.9 8H4.5V7.11111H0.9V0.888889Z" fill="black"/>
               </svg>                           
@@ -100,7 +106,7 @@
       <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
       height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
       <div class="position-absolute bottom-0 start-50 translate-middle text-center">
-        <h1 class="pb-3">Dashboard</h1>
+        <h1 class="pb-3">Match</h1>
       </div>
       <hr style="border-width: 1px;  
       width: 90%; 
@@ -112,17 +118,25 @@
 <body>
     <div class="table">
         <table>
+          <thead>
             <tr>
-            <th colspan="2">List Waktu Stadium {{ stadium }}</th>
+            <th colspan="3">List Pertandingan</th>
             </tr>
-            <tr> 
-            <th>List Waktu</th>
-            <th>Action</th>
-            </tr>
-            <tr>
-                <td>{{ date }}</td>
-                <td><a href="{% url 'pembelian_tiket:list_pertandingan_tiket' %}">[Next]</a></td>
-            </tr>
+              <tr> 
+                <th>Tim Bertanding</th>
+                <th>Stadium</th>
+                <th>Tanggal dan Waktu</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pertandingan in pertandingan %}
+              <tr>
+                <td>{{ pertandingan.tim }}</td>
+                <td>{{ pertandingan.nama_stadium }}</td>
+                <td>{{ pertandingan.datetime }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
         </table>
     </div>
     </body>
