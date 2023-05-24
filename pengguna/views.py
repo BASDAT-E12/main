@@ -11,30 +11,33 @@ DB_PASSWORD = "RHLH2Pzmwi6WgL7C2Xhc"
 DB_PORT = "6922"
 DB_USER = "postgres"
 
-try:
-    conn =psycopg2.connect(
-        database = DB_NAME,
-        user = DB_USER,
-        password = DB_PASSWORD,
-        host = DB_HOST,
-        port = DB_PORT
-    )
-    print ("Database connected successfully")
-except:
-    print ("Database not connected successfully")
 
-cur = conn.cursor()
+def connection():
+    try:
+        conn =psycopg2.connect(
+            database = DB_NAME,
+            user = DB_USER,
+            password = DB_PASSWORD,
+            host = DB_HOST,
+            port = DB_PORT
+        )
+        cur = conn.cursor()
+        print ("Database connected successfully")
+        return conn, cur
+    except:
+        print ("Database not connected successfully")
 
 def register(request):
     return render(request, "register.html")
 
 def register_all_roles(request, role):
+    conn, cur = connection()  
     print(request.method)
     if request.method == "POST":
         try:
             id = str(uuid.uuid4())
 
-            # print("nyampe sinikah")
+            print("nyampe sinikah")
             print(role)
 
             username = request.POST.get("username")
@@ -46,6 +49,16 @@ def register_all_roles(request, role):
             alamat = request.POST.get("alamat")
             status = request.POST.get("status")
 
+            while True:
+                cur.execute("SELECT id FROM NON_PEMAIN WHERE id=%s", (id,))
+                print("atau cuman sampe sini")
+                result = cur.fetchone()
+                print("sampe sini ga")
+                if result is None:
+                    break
+                print("di dalam")
+                id = str(uuid.uuid4())
+
             cur.execute("INSERT INTO USER_SYSTEM VALUES(%s, %s)", (username, password))           
             # print("nyampe sinikah??? execute1")
             cur.execute("INSERT INTO NON_PEMAIN VALUES (%s, %s, %s, %s, %s, %s)", (id, nama_depan, nama_belakang, no_hp, email, alamat))
@@ -55,27 +68,28 @@ def register_all_roles(request, role):
             cur.execute("INSERT INTO STATUS_NON_PEMAIN VALUES (%s,%s)", (id, status))
             # print("nyampe sinikah??? execute3")  
 
-            # print("nyampe sinikah??? execute4")
+            print("nyampe sinikah??? execute4")
+
             if (role == 'manager'):
                 cur.execute(" INSERT INTO MANAJER VALUES (%s,%s)", (id, username))
-                # print("dia manager loh")
-
+                print("dia manager loh")
             elif (role == 'penonton'):
                 cur.execute(" INSERT INTO PENONTON VALUES (%s,%s)", (id, username))
             elif (role == 'panitia'):
                 jabatan = request.POST.get("jabatan")
+                print(jabatan)
                 cur.execute(" INSERT INTO PANITIA VALUES (%s,%s,%s)", (id, jabatan, username))
-            # print("nyampe sinikah??? execute4")
-            # print("nyampe sini terakhir")        
+            print("nyampe sinikah??? execute4")
+            print("nyampe sini terakhir")        
         except:
-            # print("fail sini")
+            print("fail sini")
             if role == 'panitia':
+                print("salah")
                 return render(request, 'register_panitia.html')
             return render(request, 'register_manager_penonton.html')
 
         finally:
             conn.commit()
-            conn.close()
     
 
 def register_penonton(request):
@@ -85,7 +99,7 @@ def register_penonton(request):
     if request.method == "POST":
         context = {'role': 'penonton'}
         register_all_roles(request, context['role'])
-        return redirect('login_logout:login')
+        return redirect('/login/')
     else:
         context = {'role': 'penonton'}
         return render(request, "register_manager_penonton.html", context)
@@ -99,7 +113,7 @@ def register_manager(request):
     if request.method == "POST":
         context = {'role': 'manager'}
         register_all_roles(request, context['role'])
-        return redirect('login_logout:login')
+        return redirect('/login/')
     else:
         context = {'role': 'manager'}
         return render(request, "register_manager_penonton.html", context)
@@ -111,7 +125,7 @@ def register_panitia(request):
     if request.method == "POST":
         context = {'role': 'panitia'}
         register_all_roles(request, context['role'])
-        return redirect('login_logout:login')
+        return redirect('/login/')
     else:
         context = {'role': 'panitia'}
         return render(request, "register_panitia.html", context)

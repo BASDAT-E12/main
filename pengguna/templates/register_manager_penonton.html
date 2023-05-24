@@ -32,7 +32,7 @@
           <h5 class="card-title text-center">Form Registrasi</h5>
           <div class="my-2 d-flex justify-content-center align-items-center">
           </div>
-          <form method="POST" action="">
+          <form method="POST">
             {% csrf_token %}
             <div class="form-group">
               <label for="username"><b>Username:</b></label>
@@ -87,7 +87,7 @@
             <div class="text-end">
               <!-- <button type="submit" class="btn btn-success text-end" data-bs-toggle="modal" data-bs-target="#popUp">Register</button> -->
               <!-- <a href="{% url 'landing_page:show_landing_page_manajer'%}"></a> -->
-              <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#popUp">Register</button>
+              <button type="submit" class="btn btn-success">Register</button>
             </div>
           <!-- <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
             <div class="modal-dialog">
