@@ -20,7 +20,7 @@
           <a class="nav-link" href="/landing_page/">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/kelola_tim/">Team Management</a>
+          <a class="nav-link" href="/kelola_tim/manager_check_team/">Team Management</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/cru_peminjaman_stadium/">Stadium Booking</a>
@@ -68,29 +68,26 @@
 <div class="container">
   <div class="row">
     <div class="col-md-16-mx-auto">
-    
-    <div class="card text-center">
+    <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Choose Your Desirable Player</h5>
+        <h5 class="card-title text-center">Choose Your Desirable Player</h5>
         <hr>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Daftar Pemain
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+        <form class="form-inline" method="POST" action="{% url 'kelola_tim:daftar_pemain' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <select id="pilih-pemain" name="id_pemain" class="form-select" style="text-transform: capitalize;" >
+              {% for p in table_pemain %}
+              <option style="text-transform: capitalize;" value="{{p.id_pemain}}">{{p.nama_pemain}} - {{p.posisi_pemain}}</option>
+              {% endfor %}
+            </select>
           </div>
-        </div>
-        <p class="card-text mt-3">Anda memilih pemain <b>John Doe</b></p>
+        
       </div>
     </div>
     <div class="my-2 d-flex justify-content-end align-items-center">
-      <button class="btn btn-success mr-2"><a class="text-decoration-none text-white" href="/kelola_tim/list_tim/">Submit</a></button>
-    </div> 
-    
-    
+      <button class="btn btn-success mr-2" type="submit">Submit</button>
+    </div>  
+  </form>  
   </div>
   
 </div>

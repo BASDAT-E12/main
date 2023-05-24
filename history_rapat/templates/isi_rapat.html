@@ -24,21 +24,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav nav-underline justify-content-between w-100">
         <li class="nav-item">
-          <a class="nav-link" href="/landing_page/">Dashboard</a>
+          <a class="nav-link" href="/landing_page/manajer">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/kelola_tim/manager_check_team/">Team Management</a>
+          <a class="nav-link" href="/kelola_tim/">Team Management</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/cru_peminjaman_stadium/">Stadium Booking</a>
         </li>
         <img src="https://pics.freeicons.io/uploads/icons/png/1124251691647164852-512.png" alt="Logo" width="30" height="33" class="d-inline-block align-text-top">
         <li class="nav-item">
-<<<<<<< HEAD
-          <a class="nav-link" href="/list_pertandingan/manajer">Match Schedule</a>
-=======
           <a class="nav-link" href="/list_pertandingan_penonton_manager/manager">Match Schedule</a>
->>>>>>> 3d8f74a49d196fa18e718fda8403587dd6921851
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/history_rapat/">Meeting Records</a>
@@ -48,7 +44,7 @@
             Welcome, User
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/logout/">Logout 
+            <li><a class="dropdown-item" href="#">Logout 
               <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.75 1.77778L6.1155 2.40444L7.2765 3.55556H2.7V4.44444H7.2765L6.1155 5.59111L6.75 6.22222L9 4L6.75 1.77778ZM0.9 0.888889H4.5V0H0.9C0.405 0 0 0.4 0 0.888889V7.11111C0 7.6 0.405 8 0.9 8H4.5V7.11111H0.9V0.888889Z" fill="black"/>
               </svg>                           
@@ -75,29 +71,8 @@
 <div class="container px-1">
   <div class="row align-items-center px-2">
     <table class="table table-bordered px-5">
-      <thead>
-        <tr>
-          <th scope="col" colspan="5" class="text-center">List Rapat</th>
-        </tr>
-        <tr>
-          <th scope="col" class="text-center">Rapat Tim</th>
-          <th scope="col" class="text-center">Nama Panitia</th>
-          <th scope="col" class="text-center">Stadium</th>
-          <th scope="col" class="text-center">Tanggal dan Waktu</th>
-          <th scope="col" class="text-center">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for rapat in rapat %}
-        <tr>
-          <td>{{ rapat.tim }}</td>
-          <td>{{ rapat.nama_panitia }}</td>
-          <td>{{ rapat.nama_stadium }}</td>
-          <td>{{ rapat.datetime }}</td>
-          <td><a href="{% url 'history_rapat:show_isi_rapat' id=rapat.id_pertandingan%}">Lihat laporan rapat</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
+      <h4 class="text-center"><strong>LAPORAN RAPAT </strong></h4>
+      <h5 class="text-center">{{ isi_rapat.0.isi_rapat }}</h5>
     </table>
   </div>
 </div>

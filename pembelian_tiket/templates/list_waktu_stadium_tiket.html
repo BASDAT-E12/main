@@ -113,14 +113,14 @@
     <div class="table">
         <table>
             <tr>
-            <th colspan="2">List Waktu Stadium [Nama Stadium]</th>
+            <th colspan="2">List Waktu Stadium {{ stadium }}</th>
             </tr>
             <tr> 
             <th>List Waktu</th>
             <th>Action</th>
             </tr>
             <tr>
-                <td>07:00 - 09.00</td>
+                <td>{{ date }}</td>
                 <td><a href="{% url 'pembelian_tiket:list_pertandingan_tiket' %}">[Next]</a></td>
             </tr>
         </table>
