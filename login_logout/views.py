@@ -56,6 +56,7 @@ def authenticate(request):
             result = cursor.fetchone()
             if result is not None:
                 request.session["role"] = "manajer"
+                request.session["id_manajer"] = result[0]
                 return redirect("landing_page:index") 
             
             # PANITIA
@@ -66,6 +67,7 @@ def authenticate(request):
             result = cursor.fetchone()
             if result is not None:
                 request.session["role"] = "panitia"
+                request.session["id_panitia"] = result[0]
                 return redirect("landing_page:index") 
 
             # PENONTON
@@ -76,6 +78,7 @@ def authenticate(request):
             result = cursor.fetchone()
             if result is not None:
                 request.session["role"] = "penonton"
+                request.session["id_penonton"] = result[0]
                 return redirect("landing_page:index")
     else: 
         #Username atau password salah 
