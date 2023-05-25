@@ -110,7 +110,6 @@
     <div class="row align-items-center py-1" >
         <h3 class="text-center"> Upcoming Meeting</h3>
         <div  class="col-md-12 d-flex justify-content-center align-items-center pb-3"></div>   
-<<<<<<< HEAD
         {% if check_rapat == None %}
         <div class="alert alert-warning text-center" role="alert">
           Tidak ada rapat. 
@@ -130,25 +129,11 @@
                     <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">{{r.tgl_rapat}}</span> </h6>
                     <h5 class="card-title">Rapat Pertandingan <b>{{r.tim_bertanding}}</b> </h5>
                     <p class="d-inline-block"><b>Anggota rapat: </b>{{nama_depan}} {{nama_belakang}}, {{r.manajer_tim_a}}, {{r.manajer_tim_b}}</p>
-=======
-        <div class="col-md-12">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            {% for r in table_rapat %}
-            <div class="col">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Rapat Pertandingan {{r.tim_bertanding}} </h5>
-                    <p class="d-inline-block ps-2"><b>Anggota rapat: </b>{{nama_depan}} {{nama_belakang}}, {{r.manajer_tim_a}}, {{r.manajer_tim_b}}</p>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">{{r.tgl_rapat}}</span> </h6>
->>>>>>> ac1310de19a8a2e6a60b515968b6e7d42c27ad7d
                   </div>
                 </div>
             </div>
             {% endfor %}
-<<<<<<< HEAD
       </div>
-=======
->>>>>>> ac1310de19a8a2e6a60b515968b6e7d42c27ad7d
     </div>
     {% endif %}
   </div>
