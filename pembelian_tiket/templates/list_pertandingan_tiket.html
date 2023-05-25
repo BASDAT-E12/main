@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block meta %}
 <html>
@@ -113,37 +112,24 @@
     <div class="table">
         <table>
             <tr>
-            <th colspan="2">List Waktu Stadium [Nama Stadium]</th>
+            <th colspan="3">List Pertandingan {{ stadium }}</th>
             </tr>
             <tr> 
-            <th>Tim 1</th>
-            <th>Tim 2</th>
-            <th></th>
+              <th>Tim 1</th>
+              <th>Tim 2</th>
+              <th></th>
             </tr>
+            {% for team in teams %}
             <tr>
-                <td>A</td>
-                <td>B</td>
-                <td><a href="{% url 'pembelian_tiket:beli_tiket' %}">Pilih</a></td>
+              <td>{{ team.first_team }}</td>
+              <td>{{ team.second_team }}</td>
+              <td><a href="{% url 'pembelian_tiket:beli_tiket' id=team.id_pertandingan %}">Pilih</a></td>
             </tr>
-            <tr>
-                <td>C</td>
-                <td>D</td>
-                <td><a href="{% url 'pembelian_tiket:beli_tiket' %}">Pilih</a></td>
-            </tr>
-            <tr>
-                <td>E</td>
-                <td>F</td>
-                <td><a href="{% url 'pembelian_tiket:beli_tiket' %}">Pilih</a></td>
-            </tr>
-            <tr>
-                <td>F</td>
-                <td>G</td>
-                <td><a href="{% url 'pembelian_tiket:beli_tiket' %}">Pilih</a></td>
-            </tr>
+            {% endfor %}
         </table>
     </div>
-    </body>
-    </html>
+</body>
+</html>
 
 {% endblock content %}
 

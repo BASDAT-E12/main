@@ -22,6 +22,14 @@
     margin-right: auto;">
   </div>
 </div>
+</div>
+
+{% if error_flag == True %}
+<div class="alert alert-warning text-center d-flex align-items-center" role="alert">
+  {{message}}
+</div>
+{% endif %}
+
 <div class="container">
   <div class="row">
     <div class="pt-1 pb-3 d-flex justify-content-center align-items-center">
@@ -62,7 +70,7 @@
               </div>
               <div class="form-group">
                 <label for="email"><b>Email:</b></label>
-                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your Email"required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email"required>
               </div>
               <div class="form-group">
                 <label for="alamat"><b>Alamat:</b></label>
@@ -88,7 +96,7 @@
               <!-- <button type="submit" class="btn btn-success text-end" data-bs-toggle="modal" data-bs-target="#popUp">Register</button> -->
               <!-- <a href="{% url 'landing_page:show_landing_page_manajer'%}"></a> -->
               <button type="submit" class="btn btn-success">Register</button>
-            </div>
+            
           <!-- <div class="modal fade" id="popUp" tabindex="-1" aria-labelledby="popUpLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">

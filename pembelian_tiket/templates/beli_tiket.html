@@ -132,28 +132,37 @@
   </div>
 </head>
 <body>
+  {% if error_flag == True %}
+  <div class="alert alert-warning text-center d-flex align-items-center" role="alert">
+    {{message}}
+  </div>
+  {% endif %}
   <div class="content">
     <div class="container">
       <h3>BELI TIKET</h3>
+      <form method="POST" action="">
+      {% csrf_token %}
       <div class="form-group">
-        <label for="stadium">Jenis Tiket:</label>
-        <select id="stadium" name="stadium">
-          <option value="A">VIP</option>
-          <option value="B">Main East</option>
-          <option value="C">Kategori 1</option>
-          <option value="D">Kategori 2</option>
+        <label for="kategori">Jenis Tiket:</label>
+        <select id="kategori" name="kategori">
+          <option value="VIP">VIP</option>
+          <option value="Main East">Main East</option>
+          <option value="Kategori 1">Kategori 1</option>
+          <option value="Kategori 2">Kategori 2</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="tanggal">Pembayaran:</label>
-        <select id="stadium" name="stadium">
-            <option value="A">QRIS</option>
-            <option value="B">OVO</option>
-            <option value="C">GOPAY</option>
+        <label for="metode_pembayaran">Pembayaran:</label>
+        <select id="metode_pembayaran" name="metode_pembayaran">
+            <option value="QRIS">QRIS</option>
+            <option value="OVO">OVO</option>
+            <option value="GOPAY">GOPAY</option>
           </select>
       </div>
-      <!-- <a href="{% url 'pembelian_tiket:list_waktu_stadium_tiket' %}" class = 'button'>[NEXT]</a> -->
-      <a class = 'button'>[NEXT]</a>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-sm">NEXT</button>
+      </div>
+      </form>
     </div>
   </div>
 </body>

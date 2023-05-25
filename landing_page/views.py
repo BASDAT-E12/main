@@ -11,36 +11,53 @@ DB_PASSWORD = "RHLH2Pzmwi6WgL7C2Xhc"
 DB_PORT = "6922"
 DB_USER = "postgres"
 
-try: 
-    conn = psycopg2.connect(
-        database = DB_NAME,
-        user = DB_USER, 
-        password = DB_PASSWORD, 
-        host = DB_HOST, 
-        port = DB_PORT
-    )
-    print("Database connected succesfully")
+# try: 
+#     conn = psycopg2.connect(
+#         database = DB_NAME,
+#         user = DB_USER, 
+#         password = DB_PASSWORD, 
+#         host = DB_HOST, 
+#         port = DB_PORT
+#     )
+#     print("Database connected succesfully")
         
-except:
-    print("Database not connected successfully")
+# except:
+#     print("Database not connected successfully")
 
-#@login_required
+def connection():
+    try:
+        conn =psycopg2.connect(
+            database = DB_NAME,
+            user = DB_USER,
+            password = DB_PASSWORD,
+            host = DB_HOST,
+            port = DB_PORT
+        )
+        cur = conn.cursor()
+        print ("Database connected successfully")
+        return conn, cur
+    except:
+        print ("Database not connected successfully")
+
+# @login_required
 def find_manajer(str):
+    conn, cur = connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute(f"SELECT concat(nama_depan, ' ', nama_belakang) FROM non_pemain WHERE id = '{str}'")
     result = cur.fetchone()
     return result[0]
 
-#@login_required
+# @login_required
 def find_status(id_non_pemain):
+    conn, cur = connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute(f"SELECT status FROM status_non_pemain WHERE id_non_pemain = '{id_non_pemain}'")
     result = cur.fetchone()
     return result[0]
 
-#@login_required
+# @login_required
 def get_role(request):
-
+    conn, cur = connection()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     role = request.session.get("role", None)
     check_login(request)
@@ -310,22 +327,22 @@ def get_role(request):
     cur.close()
     return render(request, "formlogin.html")
 
-#@login_required
+# @login_required
 def show_landing_page_manajer(request, context):
     check_login(request)
     return render(request, "landing_page_manajer.html", context)
 
-#@login_required
+# @login_required
 def back_landing_page_manajer(request):
     check_login(request)
     return render(request, "landing_page_manajer.html")
 
-#@login_required
+# @login_required
 def show_landing_page_penonton(request):
     check_login(request)
     return render(request, "landing_page_penonton.html")
 
-#@login_required
+# @login_required
 def show_landing_page_panitia(request):
     check_login(request)
     return render(request, "landing_page_panitia.html")
