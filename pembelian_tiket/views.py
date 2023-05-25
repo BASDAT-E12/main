@@ -26,6 +26,11 @@ def connection():
     except:
         print ("Database not connected successfully")
 
+def generate_error_message(exception):
+    msg = str(exception)
+    msg = msg[:msg.index('CONTEXT')-1]
+    return msg
+
 def pilih_stadium(request):
     stadium = get_stadium()
     context = {'stadium': stadium}
@@ -86,6 +91,11 @@ def beli_tiket(request, id):
             return redirect('/landing_page/')
         else:
             print("masuk")
+            conn.rollback()
+            message = {
+                "message": generate_error_message(e), 
+                "error_flag": True, 
+            }
             return render(request, "beli_tiket.html")
     except Exception as e:
         print(e)

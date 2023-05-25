@@ -132,6 +132,11 @@
   </div>
 </head>
 <body>
+  {% if error_flag == True %}
+  <div class="alert alert-warning text-center d-flex align-items-center" role="alert">
+    {{message}}
+  </div>
+  {% endif %}
   <div class="content">
     <div class="container">
       <h3>BELI TIKET</h3>
