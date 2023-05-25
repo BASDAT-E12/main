@@ -44,6 +44,7 @@ def get_role(request):
     
     # MANAJER
     if role == "manajer":
+        
         cur.execute(f"""SELECT * 
         FROM non_pemain 
         WHERE id in (SELECT id_manajer 
