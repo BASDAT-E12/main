@@ -145,7 +145,8 @@
   <div class="content">
     <div class="container">
       <h3>PEMBUATAN PERTANDINGAN</h3>
-      <form id="choose-stadium-form" method="POST" action="{% url 'membuat_pertandingan:choose_date' %}">
+      <form id="choose-stadium-form" method="POST" action="{% url 'membuat_pertandingan:update_choose_date' id_pertandingan=id_pertandingan|urlencode %}">
+
         {% csrf_token %}
         <div class="form-group">
           <label for="date">Date:</label>
@@ -155,7 +156,7 @@
       </form>
       
       {% if stadium_list %}
-      <form id="choose-time-form" method="POST" action="{% url 'membuat_pertandingan:choose_stadium' %}">
+      <form id="choose-time-form" method="POST" action="{% url 'membuat_pertandingan:update_choose_stadium' id_pertandingan=id_pertandingan|urlencode %}">
         {% csrf_token %}
         <div class="form-group">
           <label for="stadium">Stadium:</label>
@@ -169,7 +170,7 @@
         <button id="next-button" type="submit" class="btn btn-primary">Save Stadium</button>
       </form>
       {% endif %}
-      <a href="{% url 'membuat_pertandingan:create_match' %}">[Next]</a>
+      <a href="{% url 'membuat_pertandingan:update_create_match' id_pertandingan=id_pertandingan|urlencode %}">[Next]</a>
     </div>
   </div>
 

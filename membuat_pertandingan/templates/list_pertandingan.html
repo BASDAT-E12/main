@@ -35,11 +35,20 @@
       box-shadow: 3px 3px 3px #888888;
     }
     
-    th, td {
+    th{
       border: none;
       padding: 16px;
       text-align: center;
       border-bottom: 1px solid #f2f3f5;
+      
+    }
+
+    td {
+      border: none;
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid #f2f3f5;
+      
     }
     
     tr:nth-child(even) {
@@ -55,6 +64,12 @@
     
     a:hover {
       background-color: #f9f9f9;
+    }
+
+    h5{
+      justify-content: center;
+      text-align: center;
+
     }
     
   </style>
@@ -109,7 +124,7 @@
       <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
       height="400" class="cover pt-2 pb-4" style="filter: blur(3px);">
       <div class="position-absolute bottom-0 start-50 translate-middle text-center">
-        <h1 class="pb-3">Dashboard</h1>
+        <h1 class="pb-3"></h1>
       </div>
       <hr style="border-width: 1px;  
       width: 90%; 
@@ -120,56 +135,36 @@
 </head>
 
 <body>
-  <div class = 'table'>
-  <table>
-    <tr>
-      <th colspan="4">LIST PERTANDINGAN</th>
-    </tr>
-    <tr> 
-      <th>Grup A</th>
-      <th>Action</th>
-      <th>Grup B</th>
-      <th>Action</th>
-    </tr>
-    <tr>
-      <td>A vs B</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-      <td>I vs J</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-    </tr>
-    <tr>
-      <td>C vs D</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-      <td>K vs L</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-    </tr>
-    <tr>
-      <td>E vs F</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-      <td>M vs N</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-    </tr>
-    <tr>
-      <td>G vs H</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-      <td>? vs ?</td>
-      <td><a href=" ">[update]<a href=" ">[delete]</a></a></td>
-    </tr>
-    <tr>
-      <td>Grup C</td>
-      <td>Action</td>
-      <td>Grup D</td>
-      <td>Action</td>
-    </tr>
-    <tr>
-      <td>? vs ?</td>
-      <td><a href="{% url 'membuat_pertandingan:choose_stadium' %}">[add]</a></td>
-      <td>? vs ?</td>
-      <td><a href="{% url 'membuat_pertandingan:choose_stadium' %}">[add]</a></td>
-    </tr>
+  <h5><a href="{% url 'membuat_pertandingan:choose_stadium' %}">[Click Here To Add Match]</a></h5>
+  <div class='table'>
+    <table>
+      <tr>
+        <th colspan="4">LIST PERTANDINGAN</th>
+      </tr>
 
-  </table>
+
+
+      <tr> 
+        <th>TIM 1 VS TIM 2</th>
+        <th>Action</th>
+      </tr>
+      
+      {% for id_pertandingan, pertandingan in list_pertandingan.items %}
+          <tr>
+            <td>{{ pertandingan }}</td>
+            <td>
+              <a href="{% url 'membuat_pertandingan:update_choose_stadium' id_pertandingan=id_pertandingan %}">[update]</a>
+              <a href="{% url 'membuat_pertandingan:delete_pertandingan' id_pertandingan=id_pertandingan %}">[delete]</a>
+            </td>
+                <td></td>
+          </tr>
+      {% endfor %}
+      
+    </table>
   </div>
 </body>
+
+
+
 
 {% endblock content %}

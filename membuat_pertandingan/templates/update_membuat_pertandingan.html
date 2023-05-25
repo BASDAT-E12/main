@@ -141,7 +141,7 @@
 </head>
 <body>
   <div class="table">
-    <form id="matchForm" method="POST" action="{% url 'membuat_pertandingan:submit_match' %}">
+    <form id="matchForm" method="POST" action="{% url 'membuat_pertandingan:update_submit_match' %}">
       {% csrf_token %}
       <table>
         <tr>
