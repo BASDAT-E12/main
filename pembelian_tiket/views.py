@@ -4,6 +4,7 @@ from collections import namedtuple
 import random, string
 from datetime import datetime
 
+
 # Create your views here.
 DB_NAME = "railway"
 DB_HOST = "containers-us-west-63.railway.app"
@@ -57,7 +58,7 @@ def list_pertandingan_tiket(request):
         #f=first group, s=second group
         print(selected_stadium)
         print(date)
-        cur.execute("SELECT f.nama, f.start_datetime, f.end_datetime, f.id_pertandingan, f.nama_tim as first_team, s.nama_tim as second_team FROM (SELECT d.nama, p.id_pertandingan, nama_tim, TO_CHAR(p.start_datetime :: date, 'yyyy-mm-dd') as start_datetime, TO_CHAR(p.end_datetime :: date, 'yyyy-mm-dd') as end_datetime FROM TIM_PERTANDINGAN T JOIN PERTANDINGAN P ON T.ID_PERTANDINGAN = P.ID_PERTANDINGAN JOIN STADIUM D ON D.ID_STADIUM = P.STADIUM) as f JOIN (SELECT d.nama, p.id_pertandingan, nama_tim, TO_CHAR(p.start_datetime :: date, 'yyyy-mm-dd') as start_datetime, TO_CHAR(p.end_datetime :: date, 'yyyy-mm-dd') as end_datetime FROM TIM_PERTANDINGAN T JOIN PERTANDINGAN P ON T.ID_PERTANDINGAN = P.ID_PERTANDINGAN JOIN STADIUM D ON D.ID_STADIUM = P.STADIUM) as s ON f.id_pertandingan = s.id_pertandingan AND f.start_datetime = s.start_datetime and f.end_datetime = s.end_datetime and f.nama = s.nama where f.nama_tim < s.nama_tim and f.start_datetime <= '2021-02-02' and f.end_datetime >= '2021-02-02' and f.nama= 'Bukit Jalil National Stadium'")        
+        cur.execute("SELECT f.nama, f.start_datetime, f.end_datetime, f.id_pertandingan, f.nama_tim as first_team, s.nama_tim as second_team FROM (SELECT d.nama, p.id_pertandingan, nama_tim, TO_CHAR(p.start_datetime :: date, 'yyyy-mm-dd') as start_datetime, TO_CHAR(p.end_datetime :: date, 'yyyy-mm-dd') as end_datetime FROM TIM_PERTANDINGAN T JOIN PERTANDINGAN P ON T.ID_PERTANDINGAN = P.ID_PERTANDINGAN JOIN STADIUM D ON D.ID_STADIUM = P.STADIUM) as f JOIN (SELECT d.nama, p.id_pertandingan, nama_tim, TO_CHAR(p.start_datetime :: date, 'yyyy-mm-dd') as start_datetime, TO_CHAR(p.end_datetime :: date, 'yyyy-mm-dd') as end_datetime FROM TIM_PERTANDINGAN T JOIN PERTANDINGAN P ON T.ID_PERTANDINGAN = P.ID_PERTANDINGAN JOIN STADIUM D ON D.ID_STADIUM = P.STADIUM) as s ON f.id_pertandingan = s.id_pertandingan AND f.start_datetime = s.start_datetime and f.end_datetime = s.end_datetime and f.nama = s.nama where f.nama_tim < s.nama_tim and f.start_datetime <= %s and f.end_datetime >= %s and f.nama= %s", (date, date, selected_stadium))        
         result = namedtuplefetchall(cur)
         context = {'stadium': selected_stadium,
                 'date':  date,
@@ -91,16 +92,16 @@ def beli_tiket(request, id):
             return redirect('/landing_page/')
         else:
             print("masuk")
-            conn.rollback()
-            message = {
-                "message": generate_error_message(e), 
-                "error_flag": True, 
-            }
             return render(request, "beli_tiket.html")
     except Exception as e:
         print(e)
         print("salah")
-        return render(request, "beli_tiket.html")
+        conn.rollback()
+        message = {
+            "message": generate_error_message(e), 
+            "error_flag": True, 
+        }
+        return render(request, "beli_tiket.html", message)
 
 def get_stadium():
     conn, cur = connection()
