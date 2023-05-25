@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 import psycopg2
 from collections import namedtuple
 
@@ -24,7 +24,10 @@ except:
 cur = conn.cursor()
 
 def pilih_stadium(request):
+    stadium = get_stadium()
+    context = {'stadium': stadium}
     try:
+        print("hai")
         if request.method == "POST":
             print("ini post")
             try:
@@ -34,15 +37,15 @@ def pilih_stadium(request):
                            'date':  date}
                 return render(request, "list_waktu_stadium_tiket.html", context)
             finally:
-                conn.commit()
-                conn.close()
+                pass
         else:
             print("masuk")
-            stadium = get_stadium()
-            context = {'stadium': stadium}
+            
             return render(request, "pilih_stadium.html", context)
     except:
         print("salah")
+
+    return HttpResponse("Invalid request")
 
 
 def list_waktu_stadium_tiket(request):

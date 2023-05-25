@@ -3,6 +3,11 @@ import psycopg2
 from collections import namedtuple
 
 # Create your views here.
+# def list_pertandingan_penonton(request):
+#     return render(request, "list_pertandingan_penonton.html")
+
+# def list_pertandingan_manager(request):
+#     return render(request, "list_pertandingan_manager.html")
 
 DB_NAME = "railway"
 DB_HOST = "containers-us-west-63.railway.app"
