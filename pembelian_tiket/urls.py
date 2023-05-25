@@ -7,5 +7,5 @@ urlpatterns = [
     path('', pilih_stadium, name='pilih_stadium'),
     path('memilihwaktu/', list_waktu_stadium_tiket, name='list_waktu_stadium_tiket'),
     path('listpertandingan/', list_pertandingan_tiket, name='list_pertandingan_tiket'),
-    path('belitiket/', beli_tiket, name='beli_tiket'),
+    path('belitiket/<str:id>/', beli_tiket, name='beli_tiket'),
 ]

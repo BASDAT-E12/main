@@ -135,9 +135,11 @@
   <div class="content">
     <div class="container">
       <h3>BELI TIKET</h3>
+      <form method="POST" action="">
+      {% csrf_token %}
       <div class="form-group">
-        <label for="stadium">Jenis Tiket:</label>
-        <select id="stadium" name="stadium">
+        <label for="kategori">Jenis Tiket:</label>
+        <select id="kategori" name="kategori">
           <option value="A">VIP</option>
           <option value="B">Main East</option>
           <option value="C">Kategori 1</option>
@@ -145,15 +147,17 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="tanggal">Pembayaran:</label>
-        <select id="stadium" name="stadium">
+        <label for="metode_pembayaran">Pembayaran:</label>
+        <select id="metode_pembayaran" name="metode_pembayaran">
             <option value="A">QRIS</option>
             <option value="B">OVO</option>
             <option value="C">GOPAY</option>
           </select>
       </div>
-      <!-- <a href="{% url 'pembelian_tiket:list_waktu_stadium_tiket' %}" class = 'button'>[NEXT]</a> -->
-      <a class = 'button'>[NEXT]</a>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-sm">NEXT</button>
+      </div>
+      </form>
     </div>
   </div>
 </body>
