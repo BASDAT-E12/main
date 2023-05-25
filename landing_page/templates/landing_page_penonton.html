@@ -94,70 +94,39 @@
       <div  class="col-md-12 d-flex justify-content-center align-items-center pb-5"></div>   
     </div>
     <div class="row align-items-center py-1" >
-        <h3 class="text-center"> Upcoming Match</h3>
+      <div class="col">
+                <h3 class="text-center"> Upcoming Match</h3>
         <div  class="col-md-12 d-flex justify-content-center align-items-center pb-3"></div>   
         {% if ada_pertandingan ==  False %}
         <div class="alert alert-warning text-center" role="alert">
           Belum memesan tiket pertandingan.
         </div>
-        <div class="col-md-12">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
         {% else %}
-          {% for p in table_pertandingan %}
-            <div class="col">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">{{p.tim_pertandingan}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">{{p.start_datetime}} - {{p.end_datetime}}</span> <p class="d-inline-block ps-2" style="text-transform: uppercase;">{{p.stadium}} | {{p.jenis_tiket}}</p></h6>
-                  </div>
-                </div>
-            </div>
+        
+        <table class="table table-bordered">
+          <thead>
+            <th scope="col" class="text-center"> Tim Pertandingan </th>
+            <th scope="col" class="text-center"> Start Date </th>
+            <th scope="col" class="text-center"> End Date </th>
+            <th scope="col" class="text-center"> Kategori </th>
+            <th scope="col" class="text-center"> Stadium </th>
+          </thead>
+          <tbody class="text-center">
+            {% for p in table_pertandingan %}
+            <tr>
+              <th scope="row"> {{p.tim_pertandingan}}</th>
+              <th scope="row"> {{p.start_datetime}}</th>
+              <th scope="row"> {{p.end_datetime}}</th>
+              <th scope="row"> {{p.jenis_tiket}}</th>
+              <th scope="row"> {{p.stadium}}</th>
+            </tr>
             {% endfor %}
-            <!-- <div class="col">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Pertandingan A </h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">Kapan</span> <p class="d-inline-block ps-2">A vs B</p></h6>
-                  </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Pertandingan A </h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">Kapan</span> <p class="d-inline-block ps-2">A vs B</p></h6>
-                  </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Pertandingan A </h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><span class="badge rounded-pill text-bg-info">Kapan</span> <p class="d-inline-block ps-2">A vs B</p></h6>
-                  </div>
-                </div>
-            </div> -->
-          <!-- <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div> -->
+          </tbody>
+        </table>
+      </div>
+
         </div>
       </div>
-      <!-- <div class="col-md-6">
-       
-      </div> -->
       {% endif %}
     </div>
   </div>

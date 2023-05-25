@@ -259,7 +259,7 @@
             </thead>
             <tbody class="text-center">
               {% for p in table_pelatih %}
-              <form method="post" action="{% url 'kelola_tim:delete_pelatih' id=p.id_pelatih %}">
+              
               {% csrf_token %}
               <tr  name="id_pelatih">
                 <th scope="row"  style="text-transform: capitalize;" >{{p.nama_pelatih}}</th>
@@ -269,7 +269,6 @@
                 <td colspan="2"  style="text-transform: capitalize;">{{p.spesialisasi}}</td>
               
               </tr>
-            </form>
               {% endfor %}
             </tbody>
           </table>

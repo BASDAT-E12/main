@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 import psycopg2, psycopg2.extras
 from django.http import HttpResponse
 from utils.decorator import login_required
+from landing_page.views import check_login
 
 # Create your views here.
 
@@ -32,27 +33,28 @@ curr = conn.cursor()
 #     print("Nama Tim :" + data[0])
 #     print("Universitas :" + data[1])
 
-@login_required
+####@login_required
 def show_register_tim(request):
+
     return render(request, "register_tim.html")
 
-@login_required
+####@login_required
 def show_list_tim(request):
     return render(request, "list_tim.html")
 
-@login_required
+####@login_required
 def show_register_tim(request):
     return render(request, "register_tim.html")
 
-@login_required
+####@login_required
 def show_pilih_pelatih(request):
     return render(request, "pilih_pelatih.html")
 
-@login_required
+####@login_required
 def show_pilih_pemain(request):
     return render(request, "pilih_pemain.html")
 
-@login_required
+####@login_required
 def get_pemain_tim(nama_tim):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     cur.execute(f"""
@@ -76,7 +78,7 @@ def get_pemain_tim(nama_tim):
     ]
     return table_pemain
 
-@login_required
+####@login_required
 def get_pelatih_tim(nama_tim):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     cur.execute(f"""SELECT nama_depan, nama_belakang, nomor_hp, email, alamat, spesialisasi, id
@@ -99,20 +101,25 @@ def get_pelatih_tim(nama_tim):
     ]
     return table_pelatih
 
-@login_required
+####@login_required
 def manager_check_team(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
+    
+    try:
+        check_login(request)
+    
+        # MANAGER
 
-    # MANAGER
-
-    cur.execute(f"""SELECT id 
-        FROM non_pemain 
-        WHERE id in (SELECT id_manajer 
-        FROM manajer 
-        WHERE username = '{request.session.get('username')}')""")
-    user = cur.fetchone()
-    id = user[0]
-    request.session["id_manajer"] = id
+        cur.execute(f"""SELECT id 
+            FROM non_pemain 
+            WHERE id in (SELECT id_manajer 
+            FROM manajer 
+            WHERE username = '{request.session.get('username')}')""")
+        user = cur.fetchone()
+        id = user[0]
+        request.session["id_manajer"] = id
+    except:
+        return check_login(request)
 
     # CHECK IF MANAGER MANAGE TEAM 
     cur.execute(f"""
@@ -149,7 +156,7 @@ def manager_check_team(request):
     except TypeError:
         return redirect('/kelola_tim/register_tim/')
 
-@login_required
+####@login_required
 def pilih_pemain_available(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
@@ -193,7 +200,7 @@ def pilih_pemain_available(request):
 
     return render(request, "pilih_pemain.html", context)
 
-@login_required
+####@login_required
 def pilih_pelatih_available(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
@@ -243,7 +250,7 @@ def generate_error_message(exception):
     msg = msg[:msg.index('CONTEXT')-1]
     return msg
 
-@login_required
+###@login_required
 def daftar_pelatih(request):
     if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -295,7 +302,7 @@ def daftar_pelatih(request):
             
             return render(request, "pilih_pelatih.html", message)
 
-@login_required
+###@login_required
 def daftar_pemain(request):
      if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -340,7 +347,7 @@ def daftar_pemain(request):
         return redirect('kelola_tim:manager_check_team')
         #return render(request, "list_tim.html", context)
 
-@login_required
+###@login_required
 def delete_pelatih(request, id):
     if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -384,7 +391,7 @@ def delete_pelatih(request, id):
         return redirect('kelola_tim:manager_check_team')
         #return render(request, "list_tim.html", context)
 
-@login_required
+###@login_required
 def delete_pemain(request, id):
     # if request.method == "POST":
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -429,7 +436,7 @@ def delete_pemain(request, id):
     return redirect('kelola_tim:manager_check_team')
     #return render(request, "list_tim.html", context)
 
-@login_required
+###@login_required
 def make_captain(request, id):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     id_pemain = id
@@ -441,7 +448,7 @@ def make_captain(request, id):
 
     return redirect('kelola_tim:manager_check_team')
 
-@login_required
+###@login_required
 def create_tim(request):
     if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)

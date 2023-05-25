@@ -47,15 +47,15 @@ def authenticate(request):
             cursor = conn.cursor()
         result = cursor.fetchone()
         if result is not None:
-            request.session["username"] = result[0]
-            request.session["password"] = result[1]
+            request.session["username"] = username
+            request.session["password"] = password
             request.session["is_authenticated"] = True
-            request.session["is_verified"] = result[0] is not None #blm tau bener apa ga
+            request.session["is_verified"] =  result #blm tau bener apa ga
             # DETERMINE ROLE 
-            
+            print("test ", request.session["username"])
             # MANAJER
             try:
-                cursor.execute("SELECT * FROM manajer WHERE username = %s",  [username,])
+                cursor.execute("SELECT * FROM manajer WHERE username = %s",  (username,))
             except Exception as e:
                 cursor = conn.cursor()
             result = cursor.fetchone()
