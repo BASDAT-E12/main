@@ -12,17 +12,20 @@ DB_PASSWORD = "RHLH2Pzmwi6WgL7C2Xhc"
 DB_PORT = "6922"
 DB_USER = "postgres"
 
-try: 
-    conn = psycopg2.connect(
-        database = DB_NAME,
-        user = DB_USER, 
-        password = DB_PASSWORD, 
-        host = DB_HOST, 
-        port = DB_PORT
-    )
-    print("Database connected succesfully")
-except:
-    print("Database not connected successfully")
+def connection():
+    try:
+        conn =psycopg2.connect(
+            database = DB_NAME,
+            user = DB_USER,
+            password = DB_PASSWORD,
+            host = DB_HOST,
+            port = DB_PORT
+        )
+        cur = conn.cursor()
+        print ("Database connected successfully")
+        return conn, cur
+    except:
+        print ("Database not connected successfully")
 
 def formlogin(request):
     return render(request, "formlogin.html")
@@ -31,6 +34,7 @@ def login(request):
     return render(request, "login.html")
 
 def authenticate(request):
+    conn, cur = connection()
     cursor = conn.cursor()
     if request.method == 'POST':
         username = request.POST.get('username')

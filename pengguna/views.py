@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 import psycopg2
+from django.http import HttpResponse
 from django.contrib import messages
 import uuid
 
@@ -60,13 +61,13 @@ def register_all_roles(request, role):
                 id = str(uuid.uuid4())
 
             cur.execute("INSERT INTO USER_SYSTEM VALUES(%s, %s)", (username, password))           
-            # print("nyampe sinikah??? execute1")
+            print("nyampe sinikah??? execute1")
             cur.execute("INSERT INTO NON_PEMAIN VALUES (%s, %s, %s, %s, %s, %s)", (id, nama_depan, nama_belakang, no_hp, email, alamat))
             
-            # print("nyampe sinikah??? execute2")
+            print("nyampe sinikah??? execute2")
 
             cur.execute("INSERT INTO STATUS_NON_PEMAIN VALUES (%s,%s)", (id, status))
-            # print("nyampe sinikah??? execute3")  
+            print("nyampe sinikah??? execute3")  
 
             print("nyampe sinikah??? execute4")
 
@@ -80,17 +81,26 @@ def register_all_roles(request, role):
                 print(jabatan)
                 cur.execute(" INSERT INTO PANITIA VALUES (%s,%s,%s)", (id, jabatan, username))
             print("nyampe sinikah??? execute4")
-            print("nyampe sini terakhir")        
-        except:
+            print("nyampe sini terakhir")    
+            return redirect('/login/')    
+        except Exception as e:
             print("fail sini")
+            conn.rollback()
+            message = {
+                "message": generate_error_message(e), 
+                "error_flag": True, 
+            }
             if role == 'panitia':
                 print("salah")
-                return render(request, 'register_panitia.html')
-            return render(request, 'register_manager_penonton.html')
-
+                return render(request, 'register_panitia.html',message)
+            return render(request, 'register_manager_penonton.html', message)
         finally:
             conn.commit()
     
+def generate_error_message(exception):
+    msg = str(exception)
+    msg = msg[:msg.index('CONTEXT')-1]
+    return msg
 
 def register_penonton(request):
     # context = {'role': 'penonton'}
@@ -98,8 +108,7 @@ def register_penonton(request):
     # return render(request, "register_manager_penonton.html", context)
     if request.method == "POST":
         context = {'role': 'penonton'}
-        register_all_roles(request, context['role'])
-        return redirect('/login/')
+        return register_all_roles(request, context['role'])
     else:
         context = {'role': 'penonton'}
         return render(request, "register_manager_penonton.html", context)
@@ -112,8 +121,7 @@ def register_manager(request):
     # return render(request, "register_manager_penonton.html", context)
     if request.method == "POST":
         context = {'role': 'manager'}
-        register_all_roles(request, context['role'])
-        return redirect('/login/')
+        return register_all_roles(request, context['role'])
     else:
         context = {'role': 'manager'}
         return render(request, "register_manager_penonton.html", context)
@@ -124,8 +132,7 @@ def register_panitia(request):
     # return render(request, "register_panitia.html", context)
     if request.method == "POST":
         context = {'role': 'panitia'}
-        register_all_roles(request, context['role'])
-        return redirect('/login/')
+        return register_all_roles(request, context['role'])
     else:
         context = {'role': 'panitia'}
         return render(request, "register_panitia.html", context)
