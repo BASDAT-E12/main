@@ -24,10 +24,10 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 def login_required(function):
     def wrapper(request, *args, **kwargs):
-        print("masukkkk")
-        if 'username' not in request.session:
+        print("function:", function)
+        if request is None:
             return HttpResponseRedirect("/login/")
-        
+        print(request)
         username = request.session["username"]
         password = request.session["password"]
 

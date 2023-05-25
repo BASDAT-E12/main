@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import psycopg2, psycopg2.extras
 from django.db import connection
-from utils.decorator import login_required
+#from utils.decorator import login_required
 import json 
 # Create your views here.
 # CONNECT TO DB
@@ -24,25 +24,26 @@ try:
 except:
     print("Database not connected successfully")
 
-@login_required
+#@login_required
 def find_manajer(str):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute(f"SELECT concat(nama_depan, ' ', nama_belakang) FROM non_pemain WHERE id = '{str}'")
     result = cur.fetchone()
     return result[0]
 
-@login_required
+#@login_required
 def find_status(id_non_pemain):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute(f"SELECT status FROM status_non_pemain WHERE id_non_pemain = '{id_non_pemain}'")
     result = cur.fetchone()
     return result[0]
 
-@login_required
+#@login_required
 def get_role(request):
+
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     role = request.session.get("role", None)
-    
+    check_login(request)
     # MANAJER
     if role == "manajer":
         print("id manajer here: ", request.session["id_manajer"])
@@ -247,12 +248,14 @@ def get_role(request):
 
 
         cur.execute(f"""
-        SELECT id_pertandingan, string_agg(nama_tim, ' vs '), stadium, start_datetime, end_datetime, jenis_tiket
+        SELECT id_pertandingan, string_agg(nama_tim, ' vs '), stadium, start_datetime, end_datetime, jenis_tiket, nomor_receipt
         FROM pertandingan
         NATURAL JOIN tim_pertandingan
         NATURAL JOIN pembelian_tiket
         WHERE id_penonton = '{id}'
-        GROUP BY id_pertandingan, stadium, start_datetime, end_datetime, jenis_tiket;""")
+        GROUP BY id_pertandingan, stadium, start_datetime, end_datetime, jenis_tiket, nomor_receipt;""")
+
+        
         
         result_pertandingan = cur.fetchall()
         ada_pertandingan = True
@@ -277,6 +280,7 @@ def get_role(request):
         NATURAL JOIN tim_pertandingan
         NATURAL JOIN pembelian_tiket
         WHERE id_penonton = '{id}')""")
+
         nama_stadium = cur.fetchone()
         table_pertandingan = []
         table_pertandingan = [
@@ -306,20 +310,27 @@ def get_role(request):
     cur.close()
     return render(request, "formlogin.html")
 
-@login_required
+#@login_required
 def show_landing_page_manajer(request, context):
+    check_login(request)
     return render(request, "landing_page_manajer.html", context)
 
-@login_required
+#@login_required
 def back_landing_page_manajer(request):
+    check_login(request)
     return render(request, "landing_page_manajer.html")
 
-@login_required
+#@login_required
 def show_landing_page_penonton(request):
+    check_login(request)
     return render(request, "landing_page_penonton.html")
 
-@login_required
+#@login_required
 def show_landing_page_panitia(request):
+    check_login(request)
     return render(request, "landing_page_panitia.html")
 
+def check_login(request):
+    if 'username' not in request.session:
+        return redirect('/login/')
 
