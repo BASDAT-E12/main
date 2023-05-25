@@ -119,61 +119,162 @@
             <h6 class="card-subtitle mb-2 text-body-secondary text-center">Team Details</h6>
           </div>
         <div class="card-body">
-              <table class="table table-bordered ">
-                <thead class="table-secondary">
-                  <tr>
-                    <th scope="col" colspan="8" class="text-center">Pemain</th>
-                  </tr>
-                  <tr>
-                    <th scope="col" class="text-center">Nama Pemain</th>
-                    <th scope="col" class="text-center">No HP</th>
-                    <th scope="col" class="text-center">Tanggal Lahir</th>
-                    <th scope="col" class="text-center">Is Captain</th>
-                    <th scope="col" class="text-center">Posisi</th>
-                    <th scope="col" class="text-center">NPM</th>
-                    <th scope="col" class="text-center">Jenjang</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center" style="text-transform: capitalize;">
-                  
-                  {% for pemain in table_pemain %}
-                  <tr>
-                    <th scope="col">{{pemain.nama_pemain}}</th>
-                    <td>{{pemain.no_hp_pemain}}</td>
-                    <td>{{pemain.tgl_lahir_pemain}}</td>
-                    <td>{{pemain.is_captain}}</td>
-                    <td>{{pemain.posisi_pemain}}</td>
-                    <td>{{pemain.npm}}</td>
-                    <td>{{pemain.jenjang_pemain}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                <thead class="table-secondary">
-                  <tr>
-                      <th scope="col" colspan="8" class="text-center">Pelatih</th>
-                  </tr>
-                  <tr>
-                     <tr>
-                    <th scope="col" class="text-center">Nama Pelatih</th>
-                    <th scope="col" class="text-center">No HP</th>
-                    <th scope="col" class="text-center">Email</th>
-                    <th scope="col" class="text-center" colspan="2">Alamat</th>
-                    <th scope="col" class="text-center" colspan="2">Spesialisasi</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  {% for pelatih in table_pelatih %}
-                  <tr>
-                  <th scope="row">{{pelatih.nama_pelatih}}</th>
-                    <td>{{pelatih.nomor_hp}}</td>
-                    <td>{{pelatih.email}}</td>
-                    <td colspan="2">{{pelatih.alamat}}</td>
-                    <td colspan="2">{{pelatih.spesialisasi}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-            </table>
+          {% if flag == 1 %}
+          <div class="alert alert-warning text-center" role="alert">
+            Tim belum memiliki pelatih. 
           </div>
+          <div class="alert alert-warning text-center" role="alert">
+            Tim belum memiliki pemain.
+          </div>
+          {% endif %}
+
+          {% if flag == 2 %}
+          <div class="alert alert-warning text-center" role="alert">
+            Tim belum memiliki pemain.
+          </div>
+          <table class=" table table-bordered">
+            <thead class="table-secondary">
+              <tr>
+                  <th scope="col" colspan="8" class="text-center">Pelatih</th>
+              </tr>
+              <tr>
+                <tr>
+                <th scope="col" class="text-center">Nama Pelatih</th>
+                <th scope="col" class="text-center">No HP</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center" colspan="2">Alamat</th>
+                <th scope="col" class="text-center" colspan="2">Spesialisasi</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              {% for p in table_pelatih %}
+              <form method="post" action="{% url 'kelola_tim:delete_pelatih' id=p.id_pelatih %}">
+              {% csrf_token %}
+              <tr  name="id_pelatih">
+                <th scope="row"  style="text-transform: capitalize;" >{{p.nama_pelatih}}</th>
+                <td  style="text-transform: capitalize;">{{p.nomor_hp}}</td>
+                <td>{{p.email}}</td>
+                <td colspan="2"  style="text-transform: capitalize;">{{p.alamat}}</td>
+                <td colspan="2"  style="text-transform: capitalize;">{{p.spesialisasi}}</td>
+              </tr>
+            </form>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+
+          {% if flag == 3 %}
+          <table class="table table-bordered ">
+            <thead class="table-secondary">
+              <tr>
+                <th scope="col" colspan="8" class="text-center">{{nama_tim}} </th>
+              </tr>
+              <tr>
+                <th scope="col" colspan="8" class="text-center">Pemain</th>
+              </tr>
+              <tr>
+                <th scope="col" class="text-center">Nama Pemain</th>
+                <th scope="col" class="text-center">No HP</th>
+                <th scope="col" class="text-center">Tanggal Lahir</th>
+                <th scope="col" class="text-center">Is Captain</th>
+                <th scope="col" class="text-center">Posisi</th>
+                <th scope="col" class="text-center">NPM</th>
+                <th scope="col" class="text-center">Jenjang</th>
+              </tr>
+            </thead>
+            <tbody class="text-center" style="text-transform: capitalize;">
+              {% for p in table_pemain %}
+              <!-- <form method="post" >
+                {% csrf_token %} -->
+                <tr name="{{p.id_pemain}}">
+                  <th scope="row">{{p.nama_pemain}}</th>
+                  <td>{{p.no_hp_pemain}}</td>
+                  <td>{{p.tgl_lahir_pemain}}</td>
+                  <td>{{p.is_captain}}</td>
+                  <td>{{p.posisi_pemain}}</td>
+                  <td>{{p.npm}}</td>
+                  <td>{{p.jenjang_pemain}}</td>
+                </tr>
+              <!-- </form> -->
+            
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="alert alert-warning text-center" role="alert">
+            Tim belum memiliki pelatih. 
+          </div>
+          {% endif %}
+
+          {% if flag == 4 %}
+          <table class="table table-bordered ">
+            <thead class="table-secondary">
+              <tr>
+                <th scope="col" colspan="8" class="text-center">{{nama_tim}} </th>
+              </tr>
+              <tr>
+                <th scope="col" colspan="8" class="text-center">Pemain</th>
+              </tr>
+              <tr>
+                <th scope="col" class="text-center">Nama Pemain</th>
+                <th scope="col" class="text-center">No HP</th>
+                <th scope="col" class="text-center">Tanggal Lahir</th>
+                <th scope="col" class="text-center">Is Captain</th>
+                <th scope="col" class="text-center">Posisi</th>
+                <th scope="col" class="text-center">NPM</th>
+                <th scope="col" class="text-center">Jenjang</th>
+              </tr>
+            </thead>
+            <tbody class="text-center" style="text-transform: capitalize;">
+              {% for p in table_pemain %}
+              <!-- <form method="post" >
+                {% csrf_token %} -->
+                <tr name="{{p.id_pemain}}">
+                  <th scope="row">{{p.nama_pemain}}</th>
+                  <td>{{p.no_hp_pemain}}</td>
+                  <td>{{p.tgl_lahir_pemain}}</td>
+                  <td>{{p.is_captain}}</td>
+                  <td>{{p.posisi_pemain}}</td>
+                  <td>{{p.npm}}</td>
+                  <td>{{p.jenjang_pemain}}</td>
+                  
+                </tr>
+              <!-- </form> -->
+            
+              {% endfor %}
+            </tbody>
+          </table>
+          <table class="table table-bordered">
+            <thead class="table-secondary">
+              <tr>
+                  <th scope="col" colspan="8" class="text-center">Pelatih</th>
+              </tr>
+              <tr>
+                <tr>
+                <th scope="col" class="text-center">Nama Pelatih</th>
+                <th scope="col" class="text-center">No HP</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center" colspan="2">Alamat</th>
+                <th scope="col" class="text-center" colspan="2">Spesialisasi</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              {% for p in table_pelatih %}
+              <form method="post" action="{% url 'kelola_tim:delete_pelatih' id=p.id_pelatih %}">
+              {% csrf_token %}
+              <tr  name="id_pelatih">
+                <th scope="row"  style="text-transform: capitalize;" >{{p.nama_pelatih}}</th>
+                <td  style="text-transform: capitalize;">{{p.nomor_hp}}</td>
+                <td>{{p.email}}</td>
+                <td colspan="2"  style="text-transform: capitalize;">{{p.alamat}}</td>
+                <td colspan="2"  style="text-transform: capitalize;">{{p.spesialisasi}}</td>
+              
+              </tr>
+            </form>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% endif %}
+        </div>
         </div>
       </div>
   </div>

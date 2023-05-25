@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import psycopg2, psycopg2.extras
 from django.http import HttpResponse
-
+from utils.decorator import login_required
 
 # Create your views here.
 
@@ -32,22 +32,27 @@ curr = conn.cursor()
 #     print("Nama Tim :" + data[0])
 #     print("Universitas :" + data[1])
 
-
+@login_required
 def show_register_tim(request):
     return render(request, "register_tim.html")
 
+@login_required
 def show_list_tim(request):
     return render(request, "list_tim.html")
 
+@login_required
 def show_register_tim(request):
     return render(request, "register_tim.html")
 
+@login_required
 def show_pilih_pelatih(request):
     return render(request, "pilih_pelatih.html")
 
+@login_required
 def show_pilih_pemain(request):
     return render(request, "pilih_pemain.html")
 
+@login_required
 def get_pemain_tim(nama_tim):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     cur.execute(f"""
@@ -71,7 +76,7 @@ def get_pemain_tim(nama_tim):
     ]
     return table_pemain
 
-
+@login_required
 def get_pelatih_tim(nama_tim):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     cur.execute(f"""SELECT nama_depan, nama_belakang, nomor_hp, email, alamat, spesialisasi, id
@@ -94,6 +99,7 @@ def get_pelatih_tim(nama_tim):
     ]
     return table_pelatih
 
+@login_required
 def manager_check_team(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
@@ -116,39 +122,53 @@ def manager_check_team(request):
     team_result = cur.fetchone()
     try:
         team = team_result[0]
+        request.session["nama_tim"] = team
         pemain = get_pemain_tim(team)
         pelatih = get_pelatih_tim(team)
         if(pemain == []):
             pemain = None
         if(pelatih == []):
             pelatih = None
+        
+        flag = 0
+        if(pemain is None and pelatih is None):
+            flag = 1
+        if(pemain is None and pelatih is not None):
+            flag = 2
+        if(pemain is not None and pelatih is None):
+            flag = 3
+        if(pemain is not None and pelatih is not None):
+            flag = 4
         context = {
             "nama_tim": team,
             "pemain": pemain, 
             "pelatih": pelatih,  
+            "flag": flag
         }
         return render(request, "list_tim.html", context)
     except TypeError:
         return redirect('/kelola_tim/register_tim/')
-        
+
+@login_required
 def pilih_pemain_available(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
     # MANAJER
-    cur.execute(f"""SELECT id 
-        FROM non_pemain 
-        WHERE id in (SELECT id_manajer 
-        FROM manajer 
-        WHERE username = '{request.session.get('username')}')""")
-    user = cur.fetchone()
-    id = user[0]
+    # cur.execute(f"""SELECT id 
+    #     FROM non_pemain 
+    #     WHERE id in (SELECT id_manajer 
+    #     FROM manajer 
+    #     WHERE username = '{request.session.get('username')}')""")
+    # user = cur.fetchone()
+    # id = user[0]
+    id_manajer = request.session["id_manajer"]
 
     # NAMA TIM 
-    cur.execute(f""" SELECT nama_tim 
-        FROM tim_manajer
-        WHERE id_manajer = '{id}'""")
-    team_result = cur.fetchone()
-    team = team_result[0]
+    # cur.execute(f""" SELECT nama_tim 
+    #     FROM tim_manajer
+    #     WHERE id_manajer = '{id_manajer}'""")
+    # team_result = cur.fetchone()
+    # team = team_result[0]
 
     # PEMAIN AVAILABLE
     cur.execute(f"""
@@ -168,27 +188,29 @@ def pilih_pemain_available(request):
     
     context = {
         "table_pemain": table_pemain, 
-        "team": team, 
+        "team": request.session["nama_tim"], 
     }
 
     return render(request, "pilih_pemain.html", context)
 
+@login_required
 def pilih_pelatih_available(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
 
     # MANAJER
-    cur.execute(f"""SELECT id 
-        FROM non_pemain 
-        WHERE id in (SELECT id_manajer 
-        FROM manajer 
-        WHERE username = '{request.session.get('username')}')""")
-    user = cur.fetchone()
-    id = user[0]
+    # cur.execute(f"""SELECT id 
+    #     FROM non_pemain 
+    #     WHERE id in (SELECT id_manajer 
+    #     FROM manajer 
+    #     WHERE username = '{request.session.get('username')}')""")
+    # user = cur.fetchone()
+    # id = user[0]
+    id_manajer = request.session["id_manajer"]
 
     # NAMA TIM 
     cur.execute(f""" SELECT nama_tim 
         FROM tim_manajer
-        WHERE id_manajer = '{request.session["id_manajer"]}'""")
+        WHERE id_manajer = '{id_manajer}'""")
     team_result = cur.fetchone()
     team = team_result[0]
 
@@ -212,57 +234,68 @@ def pilih_pelatih_available(request):
     
     context = {
         "table_pelatih": table_pelatih, 
-        "team": team, 
+        "team": request.session["nama_tim"], 
     }
     return render(request, "pilih_pelatih.html", context)
 
+def generate_error_message(exception):
+    msg = str(exception)
+    msg = msg[:msg.index('CONTEXT')-1]
+    return msg
+
+@login_required
 def daftar_pelatih(request):
     if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         id_pelatih = request.POST.get("id_pelatih")
         
         # MANAJER
-        cur.execute(f"""SELECT id 
-            FROM non_pemain 
-            WHERE id in (SELECT id_manajer 
-            FROM manajer 
-            WHERE username = '{request.session.get('username')}')""")
-        user = cur.fetchone()
-        id_manajer = user[0]
+        # cur.execute(f"""SELECT id 
+        #     FROM non_pemain 
+        #     WHERE id in (SELECT id_manajer 
+        #     FROM manajer 
+        #     WHERE username = '{request.session.get('username')}')""")
+        # user = cur.fetchone()
+        id_manajer = request.session["id_manajer"]
 
         # NAMA TIM 
-        cur.execute(f""" SELECT nama_tim 
+        # cur.execute(f""" SELECT nama_tim 
+        #     FROM tim_manajer
+        #     WHERE id_manajer = '{id_manajer}'""")
+        # team_result = cur.fetchone()
+        # team = team_result[0]
+        nama_tim = request.session["nama_tim"]
+        
+        try:
+            cur.execute(f"""UPDATE pelatih
+            SET nama_tim = '{nama_tim}'
+            WHERE id_pelatih = '{id_pelatih}'""")
+            conn.commit()
+
+            cur.execute(f"""
+            SELECT nama_tim 
             FROM tim_manajer
-            WHERE id_manajer = '{request.session["id_manajer"]}'""")
-        team_result = cur.fetchone()
-        team = team_result[0]
+            WHERE id_manajer = '{id_manajer}'""")
+            team_result = cur.fetchone()
+            team = team_result[0]
+            pemain = get_pemain_tim(nama_tim)
+            pelatih = get_pelatih_tim(nama_tim)
+            context = {
+                "nama_tim": nama_tim,
+                "pemain": pemain, 
+                "pelatih": pelatih,  
+            }
+            return redirect('kelola_tim:manager_check_team')
+        except Exception as e:
+            conn.rollback()
+            message = {
+                "message": generate_error_message(e), 
+                "error_flag": True, 
+            }
+            
+            return render(request, "pilih_pelatih.html", message)
 
-        # try:
-        cur.execute(f"""UPDATE pelatih
-        SET nama_tim = '{team}'
-        WHERE id_pelatih = '{id_pelatih}'""")
-        conn.commit()
-        cur.execute(f"""
-        SELECT nama_tim 
-        FROM tim_manajer
-        WHERE id_manajer = '{request.session["id_manajer"]}'""")
-        team_result = cur.fetchone()
-        team = team_result[0]
-        pemain = get_pemain_tim(team)
-        pelatih = get_pelatih_tim(team)
-        context = {
-            "nama_tim": team,
-            "pemain": pemain, 
-            "pelatih": pelatih,  
-        }
-        return render(request, "list_tim.html", context)
-        # except Exception as e:
-            # conn.rollback()
-            # message = {
-            #     "message": "Penambahan pelatih tidak berhasil."
-            # }
-            # return render(request, "pilih_pelatih.html", message)
-
+@login_required
 def daftar_pemain(request):
      if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -275,34 +308,39 @@ def daftar_pemain(request):
             FROM manajer 
             WHERE username = '{request.session.get('username')}')""")
         user = cur.fetchone()
-        id_manajer = user[0]
+        id_manajer = request.session["id_manajer"]
 
         # NAMA TIM 
         cur.execute(f""" SELECT nama_tim 
             FROM tim_manajer
-            WHERE id_manajer = '{request.session["id_manajer"]}'""")
+            WHERE id_manajer = '{id_manajer}'""")
         team_result = cur.fetchone()
         team = team_result[0]
+        nama_tim = request.session["nama_tim"]
 
         cur.execute(f"""UPDATE pemain
-        SET nama_tim = '{team}'
+        SET nama_tim = '{nama_tim}'
         WHERE id_pemain = '{id_pemain}'""")
         conn.commit()
-        cur.execute(f"""
-        SELECT nama_tim 
-        FROM tim_manajer
-        WHERE id_manajer = '{request.session["id_manajer"]}'""")
-        team_result = cur.fetchone()
-        team = team_result[0]
-        pemain = get_pemain_tim(team)
-        pelatih = get_pelatih_tim(team)
+
+        # cur.execute(f"""
+        # SELECT nama_tim 
+        # FROM tim_manajer
+        # WHERE id_manajer = '{id_manajer}'""")
+        # team_result = cur.fetchone()
+        # team = team_result[0]
+
+        pemain = get_pemain_tim(nama_tim)
+        pelatih = get_pelatih_tim(nama_tim)
         context = {
-            "nama_tim": team,
+            "nama_tim": nama_tim,
             "pemain": pemain, 
             "pelatih": pelatih,  
         }
-        return render(request, "list_tim.html", context)
+        return redirect('kelola_tim:manager_check_team')
+        #return render(request, "list_tim.html", context)
 
+@login_required
 def delete_pelatih(request, id):
     if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -314,48 +352,52 @@ def delete_pelatih(request, id):
             FROM manajer 
             WHERE username = '{request.session.get('username')}')""")
         user = cur.fetchone()
-        id_manajer = user[0]
+        id_manajer = request.session["id_manajer"]
 
         # NAMA TIM 
         cur.execute(f""" SELECT nama_tim 
             FROM tim_manajer
-            WHERE id_manajer = '{request.session["id_manajer"]}'""")
+            WHERE id_manajer = '{id_manajer}'""")
         team_result = cur.fetchone()
         team = team_result[0]
+        nama_tim = request.session["nama_tim"]
 
         cur.execute(f"""UPDATE pelatih
         SET nama_tim = NULL
         WHERE id_pelatih = '{id_pelatih}'""")
         conn.commit()
 
-        cur.execute(f"""
-        SELECT nama_tim 
-        FROM tim_manajer
-        WHERE id_manajer = '{request.session["id_manajer"]}'""")
-        team_result = cur.fetchone()
-        team = team_result[0]
-        pemain = get_pemain_tim(team)
-        pelatih = get_pelatih_tim(team)
+        # cur.execute(f"""
+        # SELECT nama_tim 
+        # FROM tim_manajer
+        # WHERE id_manajer = '{id_manajer}'""")
+        # team_result = cur.fetchone()
+        # team = team_result[0]
+
+        pemain = get_pemain_tim(nama_tim)
+        pelatih = get_pelatih_tim(nama_tim)
         context = {
-            "nama_tim": team,
+            "nama_tim": nama_tim,
             "pemain": pemain, 
             "pelatih": pelatih,  
         }
-        return render(request, "list_tim.html", context)
+        return redirect('kelola_tim:manager_check_team')
+        #return render(request, "list_tim.html", context)
 
+@login_required
 def delete_pemain(request, id):
     # if request.method == "POST":
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     id_pemain = id
 
     # MANAJER
-    cur.execute(f"""SELECT id 
-        FROM non_pemain 
-        WHERE id in (SELECT id_manajer 
-        FROM manajer 
-        WHERE username = '{request.session.get('username')}')""")
-    user = cur.fetchone()
-    id_manajer = user[0]
+    # cur.execute(f"""SELECT id 
+    #     FROM non_pemain 
+    #     WHERE id in (SELECT id_manajer 
+    #     FROM manajer 
+    #     WHERE username = '{request.session.get('username')}')""")
+    # user = cur.fetchone()
+    # id_manajer = user[0]
 
     # NAMA TIM 
     cur.execute(f""" SELECT nama_tim 
@@ -363,80 +405,43 @@ def delete_pemain(request, id):
         WHERE id_manajer = '{request.session["id_manajer"]}'""")
     team_result = cur.fetchone()
     team = team_result[0]
+    nama_tim = request.session["nama_tim"]
 
     cur.execute(f"""UPDATE pemain
     SET nama_tim = NULL
     WHERE id_pemain = '{id_pemain}'""")
     conn.commit()
 
-    cur.execute(f"""
-    SELECT nama_tim 
-    FROM tim_manajer
-    WHERE id_manajer = '{request.session["id_manajer"]}'""")
-    team_result = cur.fetchone()
-    team = team_result[0]
-    pemain = get_pemain_tim(team)
-    pelatih = get_pelatih_tim(team)
+    # cur.execute(f"""
+    # SELECT nama_tim 
+    # FROM tim_manajer
+    # WHERE id_manajer = '{request.session["id_manajer"]}'""")
+    # team_result = cur.fetchone()
+    # team = team_result[0]
+
+    pemain = get_pemain_tim(nama_tim)
+    pelatih = get_pelatih_tim(nama_tim)
     context = {
-        "nama_tim": team,
+        "nama_tim": nama_tim,
         "pemain": pemain, 
         "pelatih": pelatih,  
     }
-    return render(request, "list_tim.html", context)
-    
+    return redirect('kelola_tim:manager_check_team')
+    #return render(request, "list_tim.html", context)
+
+@login_required
 def make_captain(request, id):
-    # if request.method == "POST":
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     id_pemain = id
-
-    # MANAJER
-    cur.execute(f"""SELECT id 
-        FROM non_pemain 
-        WHERE id in (SELECT id_manajer 
-        FROM manajer 
-        WHERE username = '{request.session.get('username')}')""")
-    user = cur.fetchone()
-    #id_manajer = user[0]
-    id_manajer = request.session["id_manajer"]
-
-    # NAMA TIM 
-    cur.execute(f""" SELECT nama_tim 
-        FROM tim_manajer
-        WHERE id_manajer = '{id_manajer}'""")
-    team_result = cur.fetchone()
-    team = team_result[0]
-
-    # PREV CAPTAIN -> blm
-    # cur.execute(f"SELECT id_pemain FROM pemain WHERE is_captain = True AND nama_tim = '{team}'")
-    # is_capt = cur.fetchone()
-    # if(is_capt is not None):
-    #     kapten = is_capt[0]
-    #     cur.execute(f"""UPDATE pemain
-    #     SET is_captain = FALSE
-    #     WHERE id_pemain = '{kapten}'""")
 
     cur.execute(f"""UPDATE pemain
         SET is_captain = TRUE
         WHERE id_pemain = '{id_pemain}'""")
     conn.commit()
-    
-    # cur.execute(f"""
-    # SELECT nama_tim 
-    # FROM tim_manajer
-    # WHERE id_manajer = '{id_manajer}'""")
-    # team_result = cur.fetchone()
-    # team = team_result[0]
-    # pemain = get_pemain_tim(team)
-    # pelatih = get_pelatih_tim(team)
-
-    # context = {
-    #     "nama_tim": team,
-    #     "pemain": pemain, 
-    #     "pelatih": pelatih,  
-    # }
 
     return redirect('kelola_tim:manager_check_team')
 
+@login_required
 def create_tim(request):
     if request.method == "POST":
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -451,14 +456,14 @@ def create_tim(request):
             ('{nama_tim}', '{nama_univ}')
             """)
 
-             # MANAJER
-            cur.execute(f"""SELECT id 
-                FROM non_pemain 
-                WHERE id in (SELECT id_manajer 
-                FROM manajer 
-                WHERE username = '{request.session.get('username')}')""")
-            user = cur.fetchone()
-            #id_manajer = user[0]
+            # MANAJER
+            # cur.execute(f"""SELECT id 
+            #     FROM non_pemain 
+            #     WHERE id in (SELECT id_manajer 
+            #     FROM manajer 
+            #     WHERE username = '{request.session.get('username')}')""")
+            # user = cur.fetchone()
+            # #id_manajer = user[0]
             id_manajer = request.session["id_manajer"]
 
             cur.execute(f"""INSERT INTO tim_manajer VALUES

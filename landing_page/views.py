@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import psycopg2, psycopg2.extras
 from django.db import connection
-from django.contrib.auth.decorators import login_required
+from utils.decorator import login_required
 import json 
 # Create your views here.
 # CONNECT TO DB
@@ -24,26 +24,28 @@ try:
 except:
     print("Database not connected successfully")
 
-
+@login_required
 def find_manajer(str):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute(f"SELECT concat(nama_depan, ' ', nama_belakang) FROM non_pemain WHERE id = '{str}'")
     result = cur.fetchone()
     return result[0]
 
+@login_required
 def find_status(id_non_pemain):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute(f"SELECT status FROM status_non_pemain WHERE id_non_pemain = '{id_non_pemain}'")
     result = cur.fetchone()
     return result[0]
 
-
+@login_required
 def get_role(request):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     role = request.session.get("role", None)
     
     # MANAJER
     if role == "manajer":
+        print("id manajer here: ", request.session["id_manajer"])
         
         cur.execute(f"""SELECT * 
         FROM non_pemain 
@@ -121,6 +123,21 @@ def get_role(request):
             for pelatih in res_pelatih
         ]
 
+        if(table_pemain == []):
+            table_pemain = None
+        if(table_pelatih == []):
+            table_pelatih = None
+        
+        flag = 0
+        if(table_pemain is None and table_pelatih is None):
+            flag = 1
+        if(table_pemain is None and table_pelatih is not None):
+            flag = 2
+        if(table_pemain is not None and table_pelatih is None):
+            flag = 3
+        if(table_pemain is not None and table_pelatih is not None):
+            flag = 4
+
         context = {
             "id": id, 
             "nama_depan": nama_depan, 
@@ -134,6 +151,7 @@ def get_role(request):
             "table_pemain": table_pemain,
             "nama_tim": nama_tim, 
             "check_tim": check_tim, 
+            "flag": flag
         }
 
         return show_landing_page_manajer(request, context)
@@ -288,16 +306,19 @@ def get_role(request):
     cur.close()
     return render(request, "formlogin.html")
 
-
+@login_required
 def show_landing_page_manajer(request, context):
     return render(request, "landing_page_manajer.html", context)
 
+@login_required
 def back_landing_page_manajer(request):
     return render(request, "landing_page_manajer.html")
 
+@login_required
 def show_landing_page_penonton(request):
     return render(request, "landing_page_penonton.html")
 
+@login_required
 def show_landing_page_panitia(request):
     return render(request, "landing_page_panitia.html")
 
