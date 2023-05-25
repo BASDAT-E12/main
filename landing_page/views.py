@@ -297,7 +297,6 @@ def get_role(request):
         NATURAL JOIN tim_pertandingan
         NATURAL JOIN pembelian_tiket
         WHERE id_penonton = '{id}')""")
-
         nama_stadium = cur.fetchone()
         table_pertandingan = []
         table_pertandingan = [
