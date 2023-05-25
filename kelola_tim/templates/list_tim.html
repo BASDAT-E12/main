@@ -21,7 +21,7 @@
           <a class="nav-link" href="/landing_page/">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/kelola_tim/">Team Management</a>
+          <a class="nav-link" href="/kelola_tim/manager_check_team/">Team Management</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/cru_peminjaman_stadium/">Stadium Booking</a>
@@ -63,18 +63,20 @@
   </div>
 </div>
 <div class="container px-1 pt-1">
-  <!-- gak ada pemain -->
-  {% if pemain == None %} 
+  {% if flag == 1 %}
   <div class="alert alert-warning text-center" role="alert">
-    Tim belum memiliki pemain.
+    Tim belum memiliki pelatih. 
   </div>
-  <!-- gak ada pelatih -->
-  {% if pelatih == None %}
   <div class="alert alert-warning text-center" role="alert">
     Tim belum memiliki pemain.
   </div>
   {% endif %}
-  <table class="table table-bordered">
+
+  {% if flag == 2 %}
+  <div class="alert alert-warning text-center" role="alert">
+    Tim belum memiliki pemain.
+  </div>
+  <table class=" table table-bordered">
     <thead class="table-secondary">
       <tr>
           <th scope="col" colspan="8" class="text-center">Pelatih</th>
@@ -107,14 +109,13 @@
       {% endfor %}
     </tbody>
   </table>
-  <!-- ada pemain -->
-  {% else %}
-  
   {% endif %}
+
+  {% if flag == 3 %}
   <table class="table table-bordered ">
     <thead class="table-secondary">
       <tr>
-        <th scope="col" colspan="8" class="text-center">{{nama_tim}}</th>
+        <th scope="col" colspan="8" class="text-center">{{nama_tim}} </th>
       </tr>
       <tr>
         <th scope="col" colspan="8" class="text-center">Pemain</th>
@@ -155,6 +156,59 @@
     
       {% endfor %}
     </tbody>
+  </table>
+  <div class="alert alert-warning text-center" role="alert">
+    Tim belum memiliki pelatih. 
+  </div>
+  {% endif %}
+
+  {% if flag == 4 %}
+  <table class="table table-bordered ">
+    <thead class="table-secondary">
+      <tr>
+        <th scope="col" colspan="8" class="text-center">{{nama_tim}} </th>
+      </tr>
+      <tr>
+        <th scope="col" colspan="8" class="text-center">Pemain</th>
+      </tr>
+      <tr>
+        <th scope="col" class="text-center">Nama Pemain</th>
+        <th scope="col" class="text-center">No HP</th>
+        <th scope="col" class="text-center">Tanggal Lahir</th>
+        <th scope="col" class="text-center">Is Captain</th>
+        <th scope="col" class="text-center">Posisi</th>
+        <th scope="col" class="text-center">NPM</th>
+        <th scope="col" class="text-center">Jenjang</th>
+        <th scope="col" class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody class="text-center" style="text-transform: capitalize;">
+      {% for p in pemain %}
+      <!-- <form method="post" >
+        {% csrf_token %} -->
+        <tr name="{{p.id_pemain}}">
+          <th scope="row">{{p.nama_pemain}}</th>
+          <td>{{p.no_hp_pemain}}</td>
+          <td>{{p.tgl_lahir_pemain}}</td>
+          <td>{{p.is_captain}}</td>
+          <td>{{p.posisi_pemain}}</td>
+          <td>{{p.npm}}</td>
+          <td>{{p.jenjang_pemain}}</td>
+          {% if p.is_captain == True %}
+            <td><a href="{% url 'kelola_tim:delete_pemain' id=p.id_pemain %}"><button type="submit" class="btn btn-danger">Delete</button></a></td>
+          {% else %}
+          <td>
+            <a href="{% url 'kelola_tim:make_captain' id=p.id_pemain %}"><button type="submit" class="btn btn-success">Make Captain</button></a>
+            <a href="{% url 'kelola_tim:delete_pemain' id=p.id_pemain %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+          </td>
+          {% endif %}
+        </tr>
+      <!-- </form> -->
+    
+      {% endfor %}
+    </tbody>
+  </table>
+  <table class="table table-bordered">
     <thead class="table-secondary">
       <tr>
           <th scope="col" colspan="8" class="text-center">Pelatih</th>
@@ -186,8 +240,8 @@
     </form>
       {% endfor %}
     </tbody>
-</table>
-
+  </table>
+  {% endif %}
 <div class="container">
   <div class="row">
     <div class="col-md-8 mx-auto text-center">

@@ -31,6 +31,7 @@ def login(request):
     return render(request, "login.html")
 
 def authenticate(request):
+    
     cursor = conn.cursor()
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -44,6 +45,7 @@ def authenticate(request):
         result = cursor.fetchone()
         if result is not None:
             request.session["username"] = result[0]
+            request.session["password"] = result[1]
             request.session["is_authenticated"] = True
             request.session["is_verified"] = result[0] is not None #blm tau bener apa ga
             # DETERMINE ROLE 
@@ -79,6 +81,7 @@ def authenticate(request):
             if result is not None:
                 request.session["role"] = "penonton"
                 request.session["id_penonton"] = result[0]
+                print("id_penonton: ", request.session["id_penonton"])
                 return redirect("landing_page:index")
     else: 
         #Username atau password salah 
