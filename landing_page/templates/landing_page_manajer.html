@@ -72,6 +72,7 @@
 </div>
 <!-- copas sampe sini -->
 <form method="POST" action="{% url 'landing_page:index' %}">
+  {% csrf_token %}
   <div class="container-fluid">
     <div class="row align-items-center">
       <!-- <img src="https://img.freepik.com/free-vector/hand-drawn-football-fans-illustration_23-2149878065.jpg?w=996&t=st=1683390248~exp=1683390848~hmac=285d2220db27161bf0fb90a2d469a15842bb03ebe9d3094dc3b34bc5f6269936" 
