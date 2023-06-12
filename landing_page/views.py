@@ -265,14 +265,13 @@ def get_role(request):
 
 
         cur.execute(f"""
-        SELECT id_pertandingan, string_agg(nama_tim, ' vs '), stadium, start_datetime, end_datetime, jenis_tiket, nomor_receipt
+        SELECT DISTINCT id_pertandingan, string_agg(nama_tim, ' vs '), nama, start_datetime, end_datetime, jenis_tiket, nomor_receipt
         FROM pertandingan
         NATURAL JOIN tim_pertandingan
         NATURAL JOIN pembelian_tiket
+        JOIN stadium ON pertandingan.stadium = stadium.id_stadium
         WHERE id_penonton = '{id}'
-        GROUP BY id_pertandingan, stadium, start_datetime, end_datetime, jenis_tiket, nomor_receipt;""")
-
-        
+        GROUP BY id_pertandingan, nama, start_datetime, end_datetime, jenis_tiket, nomor_receipt;""")
         
         result_pertandingan = cur.fetchall()
         ada_pertandingan = True
@@ -291,19 +290,12 @@ def get_role(request):
             }
             return render(request, "landing_page_penonton.html", context)
         
-        cur.execute(f"""SELECT nama FROM stadium WHERE id_stadium 
-        IN (SELECT stadium 
-        FROM pertandingan
-        NATURAL JOIN tim_pertandingan
-        NATURAL JOIN pembelian_tiket
-        WHERE id_penonton = '{id}')""")
-        nama_stadium = cur.fetchone()
         table_pertandingan = []
         table_pertandingan = [
             {
             'id_pertandingan': p[0],
             'tim_pertandingan': p[1],
-            'stadium': nama_stadium[0], 
+            'stadium': p[2], 
             'start_datetime': p[3], 
             'end_datetime': p[4],
             'jenis_tiket': p[5], 
