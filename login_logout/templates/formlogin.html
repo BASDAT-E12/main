@@ -89,7 +89,7 @@
   <div class="container">
     <div class="title">FORM LOGIN</div>
     <form method="POST" action="{% url 'authenticate' %}">
-      {% csrf_token %}
+      {%csrf_token%}
       <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
